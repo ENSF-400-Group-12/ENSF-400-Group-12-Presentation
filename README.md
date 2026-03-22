@@ -8,4 +8,8 @@ This repository hosts the **slide deck** used for the course presentation: a sma
 
 **Live presentation:** [https://closetai-presentation.vercel.app/](https://closetai-presentation.vercel.app/)
 
+### Downloadable PPTX and PDF
+
+The [`export/`](export/) folder includes **ClosetAI-ENSF400-Group12.pptx** and **ClosetAI-ENSF400-Group12.pdf**. Both are built from real text objects (editable in PowerPoint and as normal PDF text), not slide screenshots. Slide wording is sourced from [`src/content/slideCopy.ts`](src/content/slideCopy.ts) and the team roster from [`src/content/team.ts`](src/content/team.ts). To regenerate the files after you change copy, run `npm run build:exports` with dev dependencies installed.
+
 **Course:** ENSF 400 · **Section:** L01 · **Group:** 12  

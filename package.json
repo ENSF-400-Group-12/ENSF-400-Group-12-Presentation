@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:exports": "tsx scripts/generate-offline-decks.ts"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -16,6 +17,9 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "pdf-lib": "^1.17.1",
+    "pptxgenjs": "^4.0.1",
+    "tsx": "^4.21.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.3"
   }
