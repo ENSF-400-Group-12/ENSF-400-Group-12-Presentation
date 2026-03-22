@@ -290,9 +290,9 @@ main.deck-root {
 /* No border-radius here: rounding clips the WebGL canvas and reads as "cropped" edges. */
 .hero-layout__viewer {
   position: relative;
-  min-height: clamp(300px, 46dvh, 600px);
-  height: clamp(340px, 60dvh, 860px);
-  max-height: min(860px, 80dvh);
+  min-height: clamp(320px, 52dvh, 640px);
+  height: clamp(380px, 66dvh, 920px);
+  max-height: min(920px, 86dvh);
   overflow: visible;
   border-radius: 0;
 }
@@ -329,9 +329,9 @@ main.deck-root {
 
 @media (max-width: 899px) {
   .hero-layout__viewer {
-    min-height: clamp(240px, 40dvh, 440px);
-    height: clamp(280px, 48dvh, 520px);
-    max-height: min(560px, 62dvh);
+    min-height: clamp(260px, 44dvh, 480px);
+    height: clamp(300px, 54dvh, 580px);
+    max-height: min(600px, 68dvh);
   }
 }
 
@@ -413,28 +413,90 @@ main.deck-root {
   border-radius: var(--radius-md);
 }
 
-/* —— Scope slide —— */
-.prose--scope p {
-  font-size: 1.04em;
-  line-height: 1.48;
-  max-width: 62ch;
+/* —— Scope slide (scannable bullets only) —— */
+.scope-col-heading {
+  margin-bottom: 0.45rem !important;
 }
 
-.scope-lede-bullets {
-  margin: 0.85rem 0 0;
-  padding-left: 1.2rem;
+.scope-tight-bullets {
+  margin: 0;
+  padding-left: 1.15rem;
   color: var(--ink-muted);
-  font-size: 1.02em;
-  line-height: 1.45;
-  max-width: 62ch;
+  font-size: 0.98em;
+  line-height: 1.42;
+  max-width: 58ch;
 }
 
-.scope-lede-bullets li + li {
-  margin-top: 0.5rem;
+.scope-tight-bullets li + li {
+  margin-top: 0.45rem;
+}
+
+.list--scope-compact li {
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+  font-size: 0.98em;
+  line-height: 1.38;
 }
 
 .grid-2--scope {
   align-items: start;
+}
+
+/* —— Main features — tailor art —— */
+.features-hero-art {
+  display: block;
+  width: 100%;
+  max-width: min(720px, 100%);
+  max-height: min(34dvh, 360px);
+  height: auto;
+  margin: 0 auto clamp(0.85rem, 2vh, 1.25rem);
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* —— Structure & tech: icon strip —— */
+.slide-shell--stack .shell-header {
+  margin-bottom: clamp(0.45rem, 1.2vh, 0.75rem);
+}
+
+.tech-icon-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.65rem, 2vw, 1.15rem);
+  width: 100%;
+  max-width: min(920px, 100%);
+  margin: 0 auto clamp(0.85rem, 2vh, 1.35rem);
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.tech-icon-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  width: clamp(52px, 11vw, 64px);
+  flex: 0 0 auto;
+}
+
+.tech-icon-strip__img {
+  width: clamp(36px, 7vw, 44px);
+  height: clamp(36px, 7vw, 44px);
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(10, 10, 10, 0.06));
+}
+
+.tech-icon-strip__label {
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.15;
+  max-width: 72px;
 }
 
 /* —— PM slide graphic —— */
@@ -463,9 +525,22 @@ main.deck-root {
   box-sizing: border-box;
 }
 
+.pm-slide__graphic--bare {
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  max-width: min(1100px, 100%);
+  max-height: min(52dvh, 560px);
+}
+
 @media (max-height: 780px) {
   .pm-slide__graphic {
     max-height: min(32dvh, 320px);
+  }
+
+  .pm-slide__graphic--bare {
+    max-height: min(40dvh, 400px);
   }
 
   .team-slide__accent {

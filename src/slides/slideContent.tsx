@@ -8,6 +8,7 @@ import {
   slide06,
   slide07,
 } from "../content/slideCopy";
+import { TECH_STRIP_ITEMS, techIconSrc } from "../content/techIcons";
 import type { SlideRenderer } from "../components/PresentationDeck";
 
 const HeroMannequinGLB = lazy(() =>
@@ -148,35 +149,47 @@ function Slide03Description(): JSX.Element {
     <div className="slide-shell">
       <ShellHeader kicker={slide03.kicker} title={slide03.title} />
       <div className="grid-2 grid-2--scope">
-        <div className="prose prose--scope">
-          {slide03.leftParagraphs.map((p) => (
-            <p key={p.slice(0, 24)}>{p}</p>
-          ))}
-          <ul className="scope-lede-bullets">
-            {slide03.leftBullets.map((b) => (
+        <div>
+          <p className="shell-header__kicker scope-col-heading">
+            {slide03.leftHeading}
+          </p>
+          <ul className="scope-tight-bullets">
+            {slide03.summaryBullets.map((b) => (
               <li key={b.slice(0, 40)}>{b}</li>
             ))}
           </ul>
         </div>
         <div>
-          <p
-            className="shell-header__kicker"
-            style={{ marginBottom: "0.5rem" }}
-          >
+          <p className="shell-header__kicker scope-col-heading">
             {slide03.rightHeading}
           </p>
-          <ul className="list">
-            {slide03.bullets.map((b, i) => {
-              const [label, ...rest] = b.split(" ");
-              return (
-                <li key={i}>
-                  <strong>{label}</strong> {rest.join(" ")}
-                </li>
-              );
-            })}
+          <ul className="list list--scope-compact">
+            {slide03.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function TechIconStrip(): JSX.Element {
+  return (
+    <div className="tech-icon-strip" role="list" aria-label="Technologies used">
+      {TECH_STRIP_ITEMS.map((item) => (
+        <div key={item.id} className="tech-icon-strip__item" role="listitem">
+          <img
+            className="tech-icon-strip__img"
+            src={techIconSrc(item.path)}
+            alt=""
+            title={item.label}
+            loading="lazy"
+            decoding="async"
+          />
+          <span className="tech-icon-strip__label">{item.label}</span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -185,6 +198,12 @@ function Slide04Features(): JSX.Element {
   return (
     <div className="slide-shell">
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
+      <img
+        className="features-hero-art"
+        src="/brand/closetai-tailor.png"
+        alt=""
+        decoding="async"
+      />
       <div className="card-grid card-grid--3">
         {slide04.cards.map((c) => (
           <article key={c.label} className="card">
@@ -203,8 +222,9 @@ function Slide04Features(): JSX.Element {
 
 function Slide05Architecture(): JSX.Element {
   return (
-    <div className="slide-shell">
+    <div className="slide-shell slide-shell--stack">
       <ShellHeader kicker={slide05.kicker} title={slide05.title} />
+      <TechIconStrip />
       <div className="arch arch--spaced">
         {slide05.columns.map((col, i) => (
           <div key={col.heading} style={{ display: "contents" }}>
@@ -281,7 +301,7 @@ function Slide07Reflection(): JSX.Element {
       </div>
       <div className="pm-slide__media">
         <img
-          className="pm-slide__graphic"
+          className="pm-slide__graphic pm-slide__graphic--bare"
           src="/brand/management.png"
           alt=""
           decoding="async"

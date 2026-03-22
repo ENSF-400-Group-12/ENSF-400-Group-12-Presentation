@@ -31,8 +31,9 @@ const MODEL_ROTATION_FIX: [number, number, number] = [0, Math.PI, 0];
  * Camera on −Z. Framing matches the earlier “good” shot; look-at barely lower than 0.42 for a
  * touch more tripod visible without sitting the whole figure too high in frame.
  */
-const CAM_POSITION: [number, number, number] = [0, 1.32, -6.35];
-const LOOK_AT: [number, number, number] = [0, 0.26, 0];
+const CAM_POSITION: [number, number, number] = [0, 1.22, -6.35];
+/** Aim slightly lower so the stand / base stays inside the frustum. */
+const LOOK_AT: [number, number, number] = [0, 0.12, 0];
 
 function StandingCameraRig() {
   const { camera } = useThree();
