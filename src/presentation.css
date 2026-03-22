@@ -101,7 +101,7 @@ main.deck-root {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-block-start: clamp(2.35rem, 7.25vh, 4rem);
+  padding-block-start: clamp(3rem, 9.5vh, 5.25rem);
   padding-block-end: clamp(0.75rem, 2vh, 1.35rem);
   gap: clamp(0.85rem, 2vh, 1.35rem);
 }
@@ -114,7 +114,7 @@ main.deck-root {
 
 .slide-shell--demo {
   justify-content: flex-start;
-  padding-block-start: clamp(2.35rem, 7.25vh, 4rem);
+  padding-block-start: clamp(3rem, 9.5vh, 5.25rem);
 }
 
 /* PM slide: keep two-column copy + graphic from colliding when vertical space is tight */
@@ -128,16 +128,55 @@ main.deck-root {
 }
 
 .shell-header {
+  position: relative;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
   margin-bottom: clamp(0.65rem, 1.6vh, 1.1rem);
-  padding-bottom: 0.75rem;
+  padding: 0 clamp(52px, 7vw, 68px) 0.75rem;
   border-bottom: 1px solid var(--line);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
+/* One line: eyebrow · title, centered; door mark anchored right */
+.shell-header__heading {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem 0.55rem;
+  max-width: min(100%, 38rem);
+  text-align: center;
+  line-height: 1.08;
+}
+
+.shell-header__eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.shell-header__sep {
+  font-weight: 300;
+  color: var(--ink-faint);
+  opacity: 0.55;
+  user-select: none;
+}
+
+.shell-header__title-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.85vw, 3.15rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* Column subheads (e.g. scope slide) — not the main slide title */
 .shell-header__kicker {
   font-size: 0.8rem;
   letter-spacing: 0.16em;
@@ -146,16 +185,11 @@ main.deck-root {
   margin-bottom: 0.35rem;
 }
 
-.shell-header__title {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.6vw, 3.65rem);
-  font-weight: 600;
-  line-height: 1.02;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
 .shell-header__mark {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(calc(-50% - 0.2rem));
   width: clamp(48px, 4.8vw, 60px);
   height: clamp(48px, 4.8vw, 60px);
   opacity: 0.92;
@@ -442,28 +476,109 @@ main.deck-root {
   align-items: start;
 }
 
-/* —— Main features — tailor art (matches .card chrome) —— */
-.features-hero-frame {
+/* —— Main features: image + F1–F3 row, F4–F5 full width below —— */
+.slide-shell--features {
+  gap: clamp(0.55rem, 1.4vh, 0.95rem);
+}
+
+.features-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 2.05fr);
+  gap: clamp(1rem, 2.4vw, 1.85rem);
+  align-items: stretch;
   width: 100%;
-  max-width: min(760px, 100%);
-  margin: 0 auto clamp(0.75rem, 1.8vh, 1.15rem);
-  padding: clamp(0.65rem, 1.4vw, 1rem);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  background: var(--bg-elevated);
+  flex: 1;
+  min-height: 0;
+}
+
+.features-layout__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.features-layout__img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: min(36dvh, 340px);
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
+}
+
+.features-layout__f123 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1.6vw, 1.15rem);
+  align-content: start;
+  min-width: 0;
+}
+
+.features-layout__lower {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.5rem);
+  width: 100%;
+  padding-top: clamp(0.55rem, 1.4vh, 0.9rem);
+  border-top: 1px solid var(--line);
   box-sizing: border-box;
 }
 
-.features-hero-art {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  max-height: min(30dvh, 300px);
-  height: auto;
-  margin: 0 auto;
-  object-fit: contain;
-  object-position: center center;
+.features-feat__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+}
+
+.features-feat__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.85vw, 1.5rem);
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+  line-height: 1.15;
+}
+
+.features-feat__body {
+  margin: 0;
+  font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  color: var(--ink-muted);
+  line-height: 1.42;
+}
+
+.features-feat__body--lower {
+  font-size: clamp(0.86rem, 1vw, 0.95rem);
+  line-height: 1.4;
+}
+
+@media (max-width: 960px) {
+  .features-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .features-layout__f123 {
+    grid-template-columns: 1fr;
+  }
+
+  .features-layout__lower {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1100px) {
+  .features-layout__f123 {
+    gap: clamp(0.5rem, 1.2vw, 0.75rem);
+  }
+
+  .features-feat__body {
+    font-size: 0.84rem;
+  }
 }
 
 /* —— Structure & tech: icon strip —— */
@@ -501,10 +616,11 @@ main.deck-root {
   width: clamp(34px, 5.5vw, 42px);
   height: clamp(34px, 5.5vw, 42px);
   object-fit: contain;
+  object-position: center;
   display: block;
-  /* Same ink as slide titles (--ink) */
+  /* Simple Icons are brand-colored SVGs → uniform ink */
   filter: brightness(0) saturate(100%);
-  opacity: 0.9;
+  opacity: 0.88;
 }
 
 .tech-icon-strip__label {

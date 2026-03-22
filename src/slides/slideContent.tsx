@@ -67,10 +67,13 @@ function ShellHeader(props: {
 }) {
   return (
     <header className="shell-header">
-      <div>
-        <p className="shell-header__kicker">{props.kicker}</p>
-        <h1 className="shell-header__title">{props.title}</h1>
-      </div>
+      <h1 className="shell-header__heading">
+        <span className="shell-header__eyebrow">{props.kicker}</span>
+        <span className="shell-header__sep" aria-hidden>
+          ·
+        </span>
+        <span className="shell-header__title-text">{props.title}</span>
+      </h1>
       {props.showMark !== false ? (
         <img
           className="shell-header__mark shell-header__mark--door"
@@ -196,28 +199,35 @@ function TechIconStrip(): JSX.Element {
 
 function Slide04Features(): JSX.Element {
   return (
-    <div className="slide-shell">
+    <div className="slide-shell slide-shell--features">
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
-      <div className="features-hero-frame">
-        <img
-          className="features-hero-art"
-          src="/brand/closetai-tailor.png"
-          alt=""
-          decoding="async"
-        />
+      <div className="features-layout">
+        <div className="features-layout__media">
+          <img
+            className="features-layout__img"
+            src="/brand/closetai-tailor.png"
+            alt=""
+            decoding="async"
+          />
+        </div>
+        <div className="features-layout__f123">
+          {slide04.cards.map((c) => (
+            <div key={c.label} className="features-feat">
+              <p className="features-feat__label">{c.label}</p>
+              <h3 className="features-feat__title">{c.title}</h3>
+              <p className="features-feat__body">{c.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="card-grid card-grid--3">
-        {slide04.cards.map((c) => (
-          <article key={c.label} className="card">
-            <p className="card__label">{c.label}</p>
-            <h2 className="card__title">{c.title}</h2>
-            <p className="card__body">{c.body}</p>
-          </article>
-        ))}
+      <div className="features-layout__lower">
+        <p className="features-feat__body features-feat__body--lower">
+          {slide04.f4}
+        </p>
+        <p className="features-feat__body features-feat__body--lower">
+          {slide04.f5}
+        </p>
       </div>
-      <p className="prose--compact" style={{ marginTop: "1rem" }}>
-        {slide04.footer}
-      </p>
     </div>
   );
 }

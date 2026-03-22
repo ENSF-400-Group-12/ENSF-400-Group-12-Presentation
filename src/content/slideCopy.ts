@@ -47,8 +47,10 @@ export const slide04 = {
       body: "Occasion + vibe in; outfits from your closet out, with rationale and regenerate.",
     },
   ],
-  footer:
-    "F-4 favourites and F-5 richer context (e.g. weather) complete the SRS picture and extend the same dashboard-first experience.",
+  f4:
+    "F-4 · Favourites: save and manage go-to looks so strong outfits stay one click away.",
+  f5:
+    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI assists where wired—same dashboard-first flow.",
 } as const;
 
 export const slide05 = {
@@ -63,7 +65,7 @@ export const slide05 = {
       heading: "Server",
       lines: [
         "Express, session auth, multipart image uploads",
-        "OpenAI API: GPT-4o mini (4o mini) where we use AI for vision / metadata assists",
+        "OpenAI API where we use AI for vision or metadata assists",
       ],
     },
     {
@@ -72,8 +74,8 @@ export const slide05 = {
     },
   ],
   footer:
-    "Core outfit generation stays local and inspectable. Optional paths use OpenAI GPT-4o mini for lightweight vision or metadata help, aligned with the SRS. A4: feature branches, PRs, reviewed merges, clear commits.",
-  pills: ["React", "Express", "SQLite", "GPT-4o mini", "Sessions", "Git / PRs"],
+    "Core outfit generation stays local and inspectable. Optional paths use OpenAI for lightweight vision or metadata help, aligned with the SRS. A4: feature branches, PRs, reviewed merges, clear commits.",
+  pills: ["React", "Express", "SQLite", "OpenAI", "Sessions", "Git / PRs"],
 } as const;
 
 export const slide06 = {
