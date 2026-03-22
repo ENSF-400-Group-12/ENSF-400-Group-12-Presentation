@@ -67,13 +67,10 @@ function ShellHeader(props: {
 }) {
   return (
     <header className="shell-header">
-      <h1 className="shell-header__heading">
-        <span className="shell-header__eyebrow">{props.kicker}</span>
-        <span className="shell-header__sep" aria-hidden>
-          ·
-        </span>
-        <span className="shell-header__title-text">{props.title}</span>
-      </h1>
+      <div>
+        <p className="shell-header__kicker">{props.kicker}</p>
+        <h1 className="shell-header__title">{props.title}</h1>
+      </div>
       {props.showMark !== false ? (
         <img
           className="shell-header__mark shell-header__mark--door"

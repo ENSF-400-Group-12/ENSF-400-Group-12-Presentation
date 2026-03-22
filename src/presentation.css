@@ -95,14 +95,15 @@ main.deck-root {
   padding-block: clamp(0.35rem, 1.2vh, 0.85rem);
 }
 
+/* Vertically center slide content (middle-left); hero keeps its own balance */
 .slide-shell {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-block-start: clamp(3rem, 9.5vh, 5.25rem);
-  padding-block-end: clamp(0.75rem, 2vh, 1.35rem);
+  justify-content: center;
+  padding-block-start: clamp(0.5rem, 2vh, 1.1rem);
+  padding-block-end: clamp(0.5rem, 2vh, 1.1rem);
   gap: clamp(0.85rem, 2vh, 1.35rem);
 }
 
@@ -113,8 +114,8 @@ main.deck-root {
 }
 
 .slide-shell--demo {
-  justify-content: flex-start;
-  padding-block-start: clamp(3rem, 9.5vh, 5.25rem);
+  justify-content: center;
+  padding-block-start: clamp(0.5rem, 2vh, 1.1rem);
 }
 
 /* PM slide: keep two-column copy + graphic from colliding when vertical space is tight */
@@ -128,68 +129,34 @@ main.deck-root {
 }
 
 .shell-header {
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: clamp(0.65rem, 1.6vh, 1.1rem);
-  padding: 0 clamp(52px, 7vw, 68px) 0.75rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--line);
   flex-shrink: 0;
-  box-sizing: border-box;
 }
 
-/* One line: eyebrow · title, centered; door mark anchored right */
-.shell-header__heading {
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.35rem 0.55rem;
-  max-width: min(100%, 38rem);
-  text-align: center;
-  line-height: 1.08;
-}
-
-.shell-header__eyebrow {
-  font-family: var(--font-sans);
-  font-size: clamp(0.68rem, 0.95vw, 0.8rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.shell-header__sep {
-  font-weight: 300;
-  color: var(--ink-faint);
-  opacity: 0.55;
-  user-select: none;
-}
-
-.shell-header__title-text {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3.85vw, 3.15rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-/* Column subheads (e.g. scope slide) — not the main slide title */
 .shell-header__kicker {
   font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  margin-bottom: 0.35rem;
+  margin: 0 0 0.35rem;
+}
+
+.shell-header__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.6vw, 3.65rem);
+  font-weight: 600;
+  line-height: 1.02;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .shell-header__mark {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(calc(-50% - 0.2rem));
   width: clamp(48px, 4.8vw, 60px);
   height: clamp(48px, 4.8vw, 60px);
   opacity: 0.92;
