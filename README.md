@@ -10,6 +10,6 @@ This repository hosts the **slide deck** used for the course presentation: a sma
 
 ### Downloadable PPTX and PDF
 
-The [`export/`](export/) folder includes **ClosetAI-ENSF400-Group12.pptx** and **ClosetAI-ENSF400-Group12.pdf**. Both are built from real text objects (editable in PowerPoint and as normal PDF text), not slide screenshots. Slide wording is sourced from [`src/content/slideCopy.ts`](src/content/slideCopy.ts) and the team roster from [`src/content/team.ts`](src/content/team.ts). To regenerate the files after you change copy, run `npm run build:exports` with dev dependencies installed.
+The [`export/`](export/) folder includes **ClosetAI-ENSF400-Group12.pptx** and **ClosetAI-ENSF400-Group12.pdf**. Both are built from real text objects (editable in PowerPoint and as normal PDF text), not slide screenshots. Layout follows the web deck: cream background (`#F9F8F3`), uppercase kickers, serif-style titles, sans body copy, a rule under each slide title, and white card panels where the site uses cards. **PPTX** uses **Georgia + Calibri** (close to the site’s Cormorant + DM Sans). **PDF** uses **Times + Helvetica** (standard embedded fonts so the file stays portable). Slide wording comes from [`src/content/slideCopy.ts`](src/content/slideCopy.ts) and the team roster from [`src/content/team.ts`](src/content/team.ts). Regenerate after edits with `npm run build:exports` (dev dependencies installed).
 
 **Course:** ENSF 400 · **Section:** L01 · **Group:** 12  
