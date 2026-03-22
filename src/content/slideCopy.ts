@@ -15,7 +15,7 @@ export const slide03 = {
   summaryBullets: [
     "Wardrobe in the browser: save items, then generate outfits only from what you own.",
     "Readable explanations on results; dashboard-first flow (occasion + vibe, not weather-first).",
-    "Stack: React 19, React Router 6, CRA + setupProxy, Express 5, express-session, sql.js file DB (backend/data/app.db), multer uploads (backend/uploads).",
+    "Optional demo wardrobe seed so reviewers can exercise wardrobe and outfit flows without manual bulk upload.",
   ] as const,
   rightHeading: "F-1 to F-5",
   bullets: [
