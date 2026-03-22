@@ -447,7 +447,7 @@ main.deck-root {
 
 /* [Main features] equal tiles, shared mat color (matches tailor art), F4-F5 as cards */
 .slide-shell--features {
-  --features-tile-surface: #ebe8e2;
+  --features-tile-surface: #fefaf6;
   --features-tile-border: rgba(10, 10, 10, 0.1);
   gap: clamp(0.55rem, 1.4vh, 0.95rem);
 }
