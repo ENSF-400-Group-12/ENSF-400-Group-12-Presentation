@@ -6,6 +6,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export type SlideRenderer = () => ReactNode;
 
@@ -92,6 +93,8 @@ export function PresentationDeck({
 
   const progress = (safeIndex + 1) / count;
   const Current = slides[safeIndex];
+  const reduceMotion = useReducedMotion();
+  const instant = lockedIndex !== null || reduceMotion;
 
   return (
     <div
@@ -100,17 +103,24 @@ export function PresentationDeck({
       onTouchEnd={onTouchEnd}
     >
       <div className="deck__stage">
-        <div
-          className={
-            lockedIndex !== null ? "slide" : "slide slide--enter"
-          }
-          key={lockedIndex !== null ? `export-${lockedIndex}` : motionKey}
-          role="group"
-          aria-roledescription="slide"
-          aria-label={`Slide ${safeIndex + 1} of ${count}`}
-        >
-          {Current()}
-        </div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            className="slide slide--motion"
+            key={lockedIndex !== null ? `export-${lockedIndex}` : motionKey}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Slide ${safeIndex + 1} of ${count}`}
+            initial={instant ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={instant ? undefined : { opacity: 0, y: -10 }}
+            transition={{
+              duration: instant ? 0 : 0.42,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {Current()}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {lockedIndex === null ? (

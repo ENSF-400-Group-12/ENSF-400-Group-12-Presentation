@@ -1,3 +1,4 @@
+import { lazy, Suspense, useState, type JSX } from "react";
 import { GROUP_LABEL, TEAM_MEMBERS } from "../content/team";
 import {
   slide01Title,
@@ -9,20 +10,63 @@ import {
 } from "../content/slideCopy";
 import type { SlideRenderer } from "../components/PresentationDeck";
 
-function SlideHeader(props: {
+const HeroMannequinGLB = lazy(() =>
+  import("../components/HeroMannequinGLB").then((m) => ({
+    default: m.HeroMannequinGLB,
+  }))
+);
+
+const BRAND_DOOR = "/brand/ClosetAI-logo-transparent.png";
+const BRAND_WORD = "/brand/ClosetAI-transparent.png";
+const BRAND_FALLBACK = "/brand/closetai-horizontal.png";
+
+function BrandLogoLockup(): JSX.Element {
+  const [wordFailed, setWordFailed] = useState(false);
+  if (wordFailed) {
+    return (
+      <div className="hero-brand">
+        <img
+          className="hero-brand__wordmark"
+          src={BRAND_FALLBACK}
+          alt="ClosetAI"
+          decoding="async"
+        />
+      </div>
+    );
+  }
+  return (
+    <div className="hero-brand">
+      <img
+        className="hero-brand__door"
+        src={BRAND_DOOR}
+        alt=""
+        decoding="async"
+      />
+      <img
+        className="hero-brand__wordmark"
+        src={BRAND_WORD}
+        alt="ClosetAI"
+        decoding="async"
+        onError={() => setWordFailed(true)}
+      />
+    </div>
+  );
+}
+
+function ShellHeader(props: {
   kicker: string;
   title: string;
   showMark?: boolean;
 }) {
   return (
-    <header className="slide-header">
+    <header className="shell-header">
       <div>
-        <p className="slide-header__kicker">{props.kicker}</p>
-        <h1 className="slide-header__title">{props.title}</h1>
+        <p className="shell-header__kicker">{props.kicker}</p>
+        <h1 className="shell-header__title">{props.title}</h1>
       </div>
       {props.showMark !== false ? (
         <img
-          className="slide-header__mark"
+          className="shell-header__mark"
           src="/brand/closetai-square.png"
           alt=""
           decoding="async"
@@ -32,25 +76,33 @@ function SlideHeader(props: {
   );
 }
 
-function Slide01Title(): JSX.Element {
+function Slide01Hero(): JSX.Element {
   return (
-    <div className="title-slide">
-      <img
-        className="title-slide__logo"
-        src="/brand/closetai-horizontal.png"
-        alt="ClosetAI"
-        decoding="async"
-      />
-      <p className="title-slide__tagline">{slide01Title.tagline}</p>
-      <div className="title-slide__footer">
-        {slide01Title.footerParts.flatMap((part, i) =>
-          i < slide01Title.footerParts.length - 1
-            ? [
-                <span key={part}>{part}</span>,
-                <span key={`d${i}`} className="title-slide__dot" aria-hidden />,
-              ]
-            : [<span key={part}>{part}</span>]
-        )}
+    <div className="slide-shell slide-shell--hero">
+      <div className="hero-layout">
+        <div className="hero-layout__copy">
+          <BrandLogoLockup />
+          <p className="hero-tagline">{slide01Title.tagline}</p>
+          <div className="hero-footer">
+            {slide01Title.footerParts.flatMap((part, i) =>
+              i < slide01Title.footerParts.length - 1
+                ? [
+                    <span key={part}>{part}</span>,
+                    <span
+                      key={`d${i}`}
+                      className="hero-footer__dot"
+                      aria-hidden
+                    />,
+                  ]
+                : [<span key={part}>{part}</span>]
+            )}
+          </div>
+        </div>
+        <div className="hero-layout__viewer">
+          <Suspense fallback={<div className="hero-fallback" aria-hidden />}>
+            <HeroMannequinGLB />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
@@ -58,16 +110,28 @@ function Slide01Title(): JSX.Element {
 
 function Slide02Team(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={GROUP_LABEL} title="Team" />
-      <div className="team-grid">
-        {TEAM_MEMBERS.map((m) => (
-          <article key={m.ucid} className="team-card">
-            <h2 className="team-card__name">{m.name}</h2>
-            {m.role ? <p className="team-card__role">{m.role}</p> : null}
-            <p className="team-card__ucid">UCID {m.ucid}</p>
-          </article>
-        ))}
+    <div className="slide-shell slide-shell--team">
+      <ShellHeader kicker={GROUP_LABEL} title="Team" />
+      <div className="team-slide">
+        <div className="team-slide__cluster">
+          <div className="team-slide__row">
+            {TEAM_MEMBERS.map((m) => (
+              <article key={m.ucid} className="team-card">
+                <h2 className="team-card__name">{m.name}</h2>
+                {m.role ? <p className="team-card__role">{m.role}</p> : null}
+                <p className="team-card__ucid">UCID {m.ucid}</p>
+              </article>
+            ))}
+          </div>
+          <div className="team-slide__accent-wrap">
+            <img
+              className="team-slide__accent"
+              src="/brand/below-team.png"
+              alt=""
+              decoding="async"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -75,8 +139,8 @@ function Slide02Team(): JSX.Element {
 
 function Slide03Description(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={slide03.kicker} title={slide03.title} />
+    <div className="slide-shell">
+      <ShellHeader kicker={slide03.kicker} title={slide03.title} />
       <div className="grid-2">
         <div className="prose">
           {slide03.leftParagraphs.map((p) => (
@@ -84,7 +148,10 @@ function Slide03Description(): JSX.Element {
           ))}
         </div>
         <div>
-          <p className="slide-header__kicker" style={{ marginBottom: "0.5rem" }}>
+          <p
+            className="shell-header__kicker"
+            style={{ marginBottom: "0.5rem" }}
+          >
             {slide03.rightHeading}
           </p>
           <ul className="list">
@@ -105,8 +172,8 @@ function Slide03Description(): JSX.Element {
 
 function Slide04Features(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={slide04.kicker} title={slide04.title} />
+    <div className="slide-shell">
+      <ShellHeader kicker={slide04.kicker} title={slide04.title} />
       <div className="card-grid card-grid--3">
         {slide04.cards.map((c) => (
           <article key={c.label} className="card">
@@ -125,8 +192,8 @@ function Slide04Features(): JSX.Element {
 
 function Slide05Architecture(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={slide05.kicker} title={slide05.title} />
+    <div className="slide-shell">
+      <ShellHeader kicker={slide05.kicker} title={slide05.title} />
       <div className="arch arch--spaced">
         {slide05.columns.map((col, i) => (
           <div key={col.heading} style={{ display: "contents" }}>
@@ -160,8 +227,8 @@ function Slide05Architecture(): JSX.Element {
 
 function Slide06Demo(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={slide06.kicker} title={slide06.title} />
+    <div className="slide-shell slide-shell--demo">
+      <ShellHeader kicker={slide06.kicker} title={slide06.title} />
       <div className="demo-placeholder">
         <img
           className="demo-placeholder__logo"
@@ -177,8 +244,8 @@ function Slide06Demo(): JSX.Element {
 
 function Slide07Reflection(): JSX.Element {
   return (
-    <div className="slide">
-      <SlideHeader kicker={slide07.kicker} title={slide07.title} />
+    <div className="slide-shell">
+      <ShellHeader kicker={slide07.kicker} title={slide07.title} />
       <div className="grid-2">
         <div>
           {slide07.leftBlocks.map((block) => (
@@ -201,12 +268,20 @@ function Slide07Reflection(): JSX.Element {
           ))}
         </div>
       </div>
+      <div className="pm-slide__media">
+        <img
+          className="pm-slide__graphic"
+          src="/brand/management.png"
+          alt=""
+          decoding="async"
+        />
+      </div>
     </div>
   );
 }
 
 export const SLIDE_RENDERERS: SlideRenderer[] = [
-  () => <Slide01Title />,
+  () => <Slide01Hero />,
   () => <Slide02Team />,
   () => <Slide03Description />,
   () => <Slide04Features />,

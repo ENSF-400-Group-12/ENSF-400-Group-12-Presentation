@@ -7,15 +7,23 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "build:exports": "npm run build && tsx scripts/capture-pixel-exports.ts"
+    "build:exports": "npm run build && tsx scripts/capture-pixel-exports.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@react-three/drei": "^9.117.3",
+    "@react-three/fiber": "^8.17.10",
+    "framer-motion": "^11.15.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "three": "^0.170.0",
+    "three-stdlib": "^2.34.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.170.0",
     "@vitejs/plugin-react": "^4.3.4",
     "pdf-lib": "^1.17.1",
     "playwright": "^1.49.1",

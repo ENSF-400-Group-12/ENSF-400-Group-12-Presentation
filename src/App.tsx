@@ -15,7 +15,7 @@ export default function App() {
   const exportSlide1Based = useMemo(() => readExportSlide1Based(), []);
 
   return (
-    <main>
+    <main className="deck-root">
       <PresentationDeck
         slides={SLIDE_RENDERERS}
         exportSlide1Based={exportSlide1Based}

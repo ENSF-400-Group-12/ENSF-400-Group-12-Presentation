@@ -5,3 +5,6 @@ dist
 
 # Playwright slide captures (regenerate with npm run build:exports)
 export/raster/*.png
+
+# Playwright test artifacts
+test-results/
