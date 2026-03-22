@@ -442,16 +442,28 @@ main.deck-root {
   align-items: start;
 }
 
-/* —— Main features — tailor art —— */
+/* —— Main features — tailor art (matches .card chrome) —— */
+.features-hero-frame {
+  width: 100%;
+  max-width: min(760px, 100%);
+  margin: 0 auto clamp(0.75rem, 1.8vh, 1.15rem);
+  padding: clamp(0.65rem, 1.4vw, 1rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-soft);
+  box-sizing: border-box;
+}
+
 .features-hero-art {
   display: block;
   width: 100%;
-  max-width: min(720px, 100%);
-  max-height: min(34dvh, 360px);
+  max-width: 100%;
+  max-height: min(30dvh, 300px);
   height: auto;
-  margin: 0 auto clamp(0.85rem, 2vh, 1.25rem);
+  margin: 0 auto;
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center center;
 }
 
 /* —— Structure & tech: icon strip —— */
@@ -463,40 +475,47 @@ main.deck-root {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: center;
-  gap: clamp(0.65rem, 2vw, 1.15rem);
+  justify-content: space-evenly;
+  column-gap: clamp(0.5rem, 1.8vw, 1.25rem);
+  row-gap: clamp(0.75rem, 2vh, 1rem);
   width: 100%;
-  max-width: min(920px, 100%);
+  max-width: min(1200px, 100%);
   margin: 0 auto clamp(0.85rem, 2vh, 1.35rem);
-  padding-bottom: 0.35rem;
+  padding: 0 clamp(0.25rem, 1vw, 0.5rem) clamp(0.45rem, 1.2vh, 0.65rem);
   border-bottom: 1px solid var(--line);
+  box-sizing: border-box;
 }
 
 .tech-icon-strip__item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.28rem;
-  width: clamp(52px, 11vw, 64px);
-  flex: 0 0 auto;
+  justify-content: flex-end;
+  gap: 0.32rem;
+  flex: 1 1 0;
+  min-width: 56px;
+  max-width: 104px;
 }
 
 .tech-icon-strip__img {
-  width: clamp(36px, 7vw, 44px);
-  height: clamp(36px, 7vw, 44px);
+  width: clamp(34px, 5.5vw, 42px);
+  height: clamp(34px, 5.5vw, 42px);
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 1px 2px rgba(10, 10, 10, 0.06));
+  /* Same ink as slide titles (--ink) */
+  filter: brightness(0) saturate(100%);
+  opacity: 0.9;
 }
 
 .tech-icon-strip__label {
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
+  font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink);
   text-align: center;
-  line-height: 1.15;
-  max-width: 72px;
+  line-height: 1.2;
+  max-width: 92px;
+  font-weight: 500;
 }
 
 /* —— PM slide graphic —— */
@@ -530,8 +549,9 @@ main.deck-root {
   background: transparent;
   padding: 0;
   border-radius: 0;
-  max-width: min(1100px, 100%);
-  max-height: min(52dvh, 560px);
+  /* ~150% vs previous bare caps */
+  max-width: min(1650px, 100%);
+  max-height: min(78dvh, 840px);
 }
 
 @media (max-height: 780px) {
@@ -540,7 +560,7 @@ main.deck-root {
   }
 
   .pm-slide__graphic--bare {
-    max-height: min(40dvh, 400px);
+    max-height: min(60dvh, 600px);
   }
 
   .team-slide__accent {

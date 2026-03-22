@@ -8,7 +8,7 @@ import {
   slide06,
   slide07,
 } from "../content/slideCopy";
-import { TECH_STRIP_ITEMS, techIconSrc } from "../content/techIcons";
+import { TECH_STRIP_ITEMS, techStripItemSrc } from "../content/techIcons";
 import type { SlideRenderer } from "../components/PresentationDeck";
 
 const HeroMannequinGLB = lazy(() =>
@@ -181,7 +181,7 @@ function TechIconStrip(): JSX.Element {
         <div key={item.id} className="tech-icon-strip__item" role="listitem">
           <img
             className="tech-icon-strip__img"
-            src={techIconSrc(item.path)}
+            src={techStripItemSrc(item)}
             alt=""
             title={item.label}
             loading="lazy"
@@ -198,12 +198,14 @@ function Slide04Features(): JSX.Element {
   return (
     <div className="slide-shell">
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
-      <img
-        className="features-hero-art"
-        src="/brand/closetai-tailor.png"
-        alt=""
-        decoding="async"
-      />
+      <div className="features-hero-frame">
+        <img
+          className="features-hero-art"
+          src="/brand/closetai-tailor.png"
+          alt=""
+          decoding="async"
+        />
+      </div>
       <div className="card-grid card-grid--3">
         {slide04.cards.map((c) => (
           <article key={c.label} className="card">

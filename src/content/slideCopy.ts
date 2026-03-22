@@ -23,7 +23,7 @@ export const slide03 = {
     "F-2 · Wardrobe: uploads, CRUD, search/filters, optional demo wardrobe.",
     "F-3 · Outfits: generate from saved items; explain + regenerate.",
     "F-4 · Favourites: save and manage go-to looks.",
-    "F-5 · Context: richer inputs when needed (e.g. weather); LLM extras in SRS, optional for core demo.",
+    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI GPT-4o mini for vision/metadata where wired.",
   ],
 } as const;
 
@@ -61,7 +61,10 @@ export const slide05 = {
     },
     {
       heading: "Server",
-      lines: ["Express, session auth", "Multipart image uploads"],
+      lines: [
+        "Express, session auth, multipart image uploads",
+        "OpenAI API: GPT-4o mini (4o mini) where we use AI for vision / metadata assists",
+      ],
     },
     {
       heading: "Data",
@@ -69,8 +72,8 @@ export const slide05 = {
     },
   ],
   footer:
-    "Outfit logic runs locally for fast, inspectable behavior; the SRS also describes optional LLM and contextual inputs alongside F-5. A4: feature branches, PRs, reviewed merges, clear commits.",
-  pills: ["React", "Express", "SQLite", "Sessions", "Git / PRs"],
+    "Core outfit generation stays local and inspectable. Optional paths use OpenAI GPT-4o mini for lightweight vision or metadata help, aligned with the SRS. A4: feature branches, PRs, reviewed merges, clear commits.",
+  pills: ["React", "Express", "SQLite", "GPT-4o mini", "Sessions", "Git / PRs"],
 } as const;
 
 export const slide06 = {
