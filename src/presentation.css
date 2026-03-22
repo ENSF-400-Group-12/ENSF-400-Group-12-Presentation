@@ -361,17 +361,17 @@ main.deck-root {
 .team-slide__cluster {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.85rem, 2vh, 1.25rem);
+  gap: clamp(0.95rem, 2.2vh, 1.4rem);
   min-height: 0;
   width: 100%;
-  max-width: min(1420px, 100%);
+  max-width: min(1500px, 100%);
   margin-inline: auto;
 }
 
 .team-slide__row {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.5rem, 1.2vw, 0.85rem);
+  gap: clamp(0.55rem, 1.35vw, 0.95rem);
   width: 100%;
   align-items: stretch;
 }
@@ -452,9 +452,9 @@ main.deck-root {
 
 .features-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 2.05fr);
-  gap: clamp(1rem, 2.4vw, 1.85rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1.92fr);
+  gap: clamp(1rem, 2.4vw, 1.75rem);
+  align-items: stretch;
   width: 100%;
   flex: 0 1 auto;
   min-height: 0;
@@ -462,12 +462,12 @@ main.deck-root {
 
 .features-layout__media {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   min-width: 0;
 }
 
-/* Same chrome as .card: white panel, hairline border, soft shadow */
+/* Matches feature cards: same surface, radius family, shadow (no blend modes) */
 .features-layout__frame {
   width: 100%;
   box-sizing: border-box;
@@ -475,24 +475,22 @@ main.deck-root {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  padding: clamp(0.65rem, 1.4vw, 1rem);
+  padding: clamp(0.85rem, 1.65vw, 1.2rem);
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 0;
 }
 
 .features-layout__img {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: min(30dvh, 300px);
+  max-height: min(40dvh, 400px);
   object-fit: contain;
   object-position: center;
   display: block;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  /* White backdrops in the PNG read as the card surface */
-  mix-blend-mode: multiply;
+  border-radius: var(--radius-md);
 }
 
 .features-layout__right {
@@ -648,11 +646,11 @@ main.deck-root {
   }
 
   .team-slide__accent {
-    max-height: min(28dvh, 280px);
+    max-height: min(34dvh, 340px);
   }
 
   .team-slide__accent--fullbleed {
-    max-height: min(32dvh, 300px);
+    max-height: min(42dvh, 480px);
   }
 }
 

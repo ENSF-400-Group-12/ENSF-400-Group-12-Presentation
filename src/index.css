@@ -338,7 +338,7 @@ button:focus-visible {
 }
 
 .team-card {
-  padding: 1.35rem 1.4rem;
+  padding: 1.55rem 1.65rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
   background: var(--bg-elevated);
@@ -346,20 +346,20 @@ button:focus-visible {
 
 .team-card__name {
   font-family: var(--font-display);
-  font-size: clamp(1.45rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.55rem, 2.45vw, 1.95rem);
   font-weight: 600;
   margin: 0 0 0.25rem;
 }
 
 .team-card__role {
   margin: 0;
-  font-size: 0.95em;
+  font-size: 1.02em;
   color: var(--ink-muted);
 }
 
 .team-card__ucid {
-  margin: 0.4rem 0 0;
-  font-size: 0.78rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-faint);
