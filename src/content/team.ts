@@ -10,3 +10,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
 
 export const COURSE_LINE = "ENSF 400: Software Engineering · Section L01";
 export const GROUP_LABEL = "Group 12";
+
+/** Small caps line above the hero lockup (matches earlier deck styling). */
+export const HERO_TOP_LINE = `ENSF 400 · ${GROUP_LABEL}`;

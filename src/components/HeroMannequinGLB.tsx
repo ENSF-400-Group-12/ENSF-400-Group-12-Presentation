@@ -19,7 +19,8 @@ useGLTF.preload(GLB_PATH, false, false);
 /**
  * World size after normalize (meters-ish). Keeps framing stable with a fixed camera.
  */
-const TARGET_MAX_EXTENT = 4.35;
+/** Slightly larger in scene; paired with pulled-back camera + FOV so the frustum does not clip. */
+const TARGET_MAX_EXTENT = 5.05;
 
 /**
  * Blender-style fix: rotate the asset so Y is up; tune if the dress form shows side/back.
@@ -30,8 +31,8 @@ const MODEL_ROTATION_FIX: [number, number, number] = [0, Math.PI, 0];
  * Camera on −Z. Framing matches the earlier “good” shot; look-at barely lower than 0.42 for a
  * touch more tripod visible without sitting the whole figure too high in frame.
  */
-const CAM_POSITION: [number, number, number] = [0, 1.38, -5.1];
-const LOOK_AT: [number, number, number] = [0, 0.2, 0];
+const CAM_POSITION: [number, number, number] = [0, 1.32, -6.35];
+const LOOK_AT: [number, number, number] = [0, 0.26, 0];
 
 function StandingCameraRig() {
   const { camera } = useThree();
@@ -39,7 +40,7 @@ function StandingCameraRig() {
     const p = camera as THREE.PerspectiveCamera;
     p.near = 0.06;
     p.far = 120;
-    p.fov = 44;
+    p.fov = 48;
     p.position.set(...CAM_POSITION);
     p.updateProjectionMatrix();
   }, [camera]);
@@ -129,7 +130,7 @@ export function HeroMannequinGLB({ className = "" }: Props) {
   return (
     <div className={`hero-glb ${className}`.trim()}>
       <Canvas
-        camera={{ fov: 44, near: 0.06, far: 120, position: [...CAM_POSITION] }}
+        camera={{ fov: 48, near: 0.06, far: 120, position: [...CAM_POSITION] }}
         gl={{
           alpha: true,
           antialias: true,

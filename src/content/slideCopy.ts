@@ -12,15 +12,20 @@ export const slide03 = {
   kicker: "SRS (A1)",
   title: "Scope & requirements",
   leftParagraphs: [
-    "ClosetAI is a web app for digitizing clothes, managing a personal wardrobe, and generating outfits from items the user already owns, with explanations they can read and trust.",
+    "ClosetAI helps users digitize a personal wardrobe and generate outfit ideas from clothes they already own, with explanations they can read on the results screen. The product is dashboard-first: minimal navigation, emphasis on wardrobe imagery, and a flow built around occasion and style or vibe rather than a weather-first wizard.",
+    "The implementation pairs a React client (React Router, global CSS, local dev proxy) with an Express server: session-based auth, multipart image uploads, and SQLite via sql.js so metadata and images persist under backend data paths without cloud storage in the current build.",
   ],
-  rightHeading: "Requirements (F-1–F-5)",
+  leftBullets: [
+    "Problem: closets are hard to keep organized; choosing outfits repeats the same mental work; manual tagging for every garment does not scale.",
+    "Approach: image-first intake, full wardrobe CRUD with search and filters, and a local rule-based outfit engine that only uses the logged-in user's saved items.",
+  ] as const,
+  rightHeading: "Functional requirements (F-1 to F-5)",
   bullets: [
-    "F-1 Accounts: signup, login, logout, protected routes.",
-    "F-2 Wardrobe: uploads, CRUD, search, filters.",
-    "F-3 Outfits: generate from saved items with explanations; rule-based engine in product, with optional LLM support described in the SRS.",
-    "F-4 Outfit management: save, view, and manage favourite looks so users can build a library of go-to combinations.",
-    "F-5 Context-aware generation: occasion plus richer signals (e.g. weather) to tighten recommendations when users want more precision.",
+    "F-1 Accounts: signup, login, logout; protected routes; branded auth shell consistent with the SRS landing-to-dashboard story.",
+    "F-2 Digital wardrobe: add, edit, delete items; search and filters; local image storage; demo wardrobe path for showings and testing.",
+    "F-3 Outfit generation: occasion and vibe inputs; protected generate endpoint; results show selected items, explanation, and regenerate; handles an insufficient wardrobe gracefully.",
+    "F-4 Outfit management: save, browse, and manage favourite looks so users build a reusable library of combinations (extends the same dashboard experience described in the SRS).",
+    "F-5 Context-aware generation: occasion plus richer signals (for example weather) when users want tighter recommendations; optional LLM-assisted metadata and reranking described in the SRS as extensions to the core flows.",
   ],
 } as const;
 

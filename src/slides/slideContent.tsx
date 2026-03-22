@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, type JSX } from "react";
-import { GROUP_LABEL, TEAM_MEMBERS } from "../content/team";
+import { GROUP_LABEL, HERO_TOP_LINE, TEAM_MEMBERS } from "../content/team";
 import {
   slide01Title,
   slide03,
@@ -72,8 +72,8 @@ function ShellHeader(props: {
       </div>
       {props.showMark !== false ? (
         <img
-          className="shell-header__mark"
-          src="/brand/closetai-square.png"
+          className="shell-header__mark shell-header__mark--door"
+          src="/brand/ClosetAI-logo-transparent.png"
           alt=""
           decoding="async"
         />
@@ -87,8 +87,10 @@ function Slide01Hero(): JSX.Element {
     <div className="slide-shell slide-shell--hero">
       <div className="hero-layout">
         <div className="hero-layout__copy">
+          <p className="hero-kicker">{HERO_TOP_LINE}</p>
           <BrandLogoLockup />
           <p className="hero-tagline">{slide01Title.tagline}</p>
+          <div className="hero-rule" aria-hidden />
           <div className="hero-footer">
             {slide01Title.footerParts.flatMap((part, i) =>
               i < slide01Title.footerParts.length - 1
@@ -129,14 +131,12 @@ function Slide02Team(): JSX.Element {
               </article>
             ))}
           </div>
-          <div className="team-slide__accent-wrap">
-            <img
-              className="team-slide__accent"
-              src="/brand/below-team.png"
-              alt=""
-              decoding="async"
-            />
-          </div>
+          <img
+            className="team-slide__accent team-slide__accent--fullbleed"
+            src="/brand/below-team.png"
+            alt=""
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -147,11 +147,16 @@ function Slide03Description(): JSX.Element {
   return (
     <div className="slide-shell">
       <ShellHeader kicker={slide03.kicker} title={slide03.title} />
-      <div className="grid-2">
-        <div className="prose">
+      <div className="grid-2 grid-2--scope">
+        <div className="prose prose--scope">
           {slide03.leftParagraphs.map((p) => (
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
+          <ul className="scope-lede-bullets">
+            {slide03.leftBullets.map((b) => (
+              <li key={b.slice(0, 40)}>{b}</li>
+            ))}
+          </ul>
         </div>
         <div>
           <p
