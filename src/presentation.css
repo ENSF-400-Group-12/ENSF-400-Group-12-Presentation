@@ -1,4 +1,4 @@
-/* Full-viewport canvas: warm paper gradient + light grain (single surface, no “card” seam). */
+/* Full-viewport canvas: warm paper gradient + light grain (single surface, no faux card seam). */
 html {
   height: 100%;
   overflow: hidden;
@@ -41,7 +41,7 @@ body {
 }
 
 /*
- * Full-bleed shell only (no CSS transform zoom — scale(1.5) blew out layout, clipped chrome,
+ * Full-bleed shell only (no CSS transform zoom: scale(1.5) blew out layout, clipped chrome,
  * and fought 100% heights / WebGL). For projector size, use browser zoom or tweak body font clamp in index.css.
  */
 main.deck-root {
@@ -91,19 +91,27 @@ main.deck-root {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding-block: clamp(0.35rem, 1.2vh, 0.85rem);
 }
 
-/* Vertically center slide content (middle-left); hero keeps its own balance */
+/* Hero slide: keep vertical balance in the stage */
+.slide:has(.slide-shell--hero) {
+  justify-content: center;
+}
+
+/*
+ * Titles align across slides: fixed upper-mid inset (not content-height centering).
+ * Hero shell overrides its own padding below.
+ */
 .slide-shell {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-block-start: clamp(0.5rem, 2vh, 1.1rem);
-  padding-block-end: clamp(0.5rem, 2vh, 1.1rem);
+  justify-content: flex-start;
+  padding-block-start: clamp(2.65rem, 11.25vh, 5.65rem);
+  padding-block-end: clamp(0.65rem, 2vh, 1.25rem);
   gap: clamp(0.85rem, 2vh, 1.35rem);
 }
 
@@ -113,15 +121,8 @@ main.deck-root {
   padding-block-start: clamp(0.5rem, 2.5vh, 1.5rem);
 }
 
-.slide-shell--demo {
-  justify-content: center;
-  padding-block-start: clamp(0.5rem, 2vh, 1.1rem);
-}
-
-/* PM slide: tall stack centers high — nudge down so title lines up with other slides */
 .slide-shell--pm {
   min-height: 0;
-  padding-block-start: clamp(2rem, 6.5vh, 4rem);
 }
 
 .slide-shell--pm .grid-2 {
@@ -171,7 +172,7 @@ main.deck-root {
   height: clamp(44px, 4.5vw, 56px);
 }
 
-/* —— Hero —— */
+/* [Hero] */
 .hero-layout {
   display: grid;
   gap: clamp(1rem, 3vw, 2rem);
@@ -356,7 +357,7 @@ main.deck-root {
   );
 }
 
-/* —— Team —— */
+/* [Team] */
 .team-slide__cluster {
   display: flex;
   flex-direction: column;
@@ -415,7 +416,7 @@ main.deck-root {
   border-radius: var(--radius-md);
 }
 
-/* —— Scope slide (scannable bullets only) —— */
+/* [Scope slide] */
 .scope-col-heading {
   margin-bottom: 0.45rem !important;
 }
@@ -444,7 +445,7 @@ main.deck-root {
   align-items: start;
 }
 
-/* —— Main features: image left; F1–F3 cards; F4–F5 tight under cards (same column) —— */
+/* [Main features] image left, F1-F3 cards, F4-F5 under cards */
 .slide-shell--features {
   gap: clamp(0.55rem, 1.4vh, 0.95rem);
 }
@@ -466,16 +467,32 @@ main.deck-root {
   min-width: 0;
 }
 
+/* Same chrome as .card: white panel, hairline border, soft shadow */
+.features-layout__frame {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(0.65rem, 1.4vw, 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .features-layout__img {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: min(34dvh, 320px);
+  max-height: min(30dvh, 300px);
   object-fit: contain;
-  object-position: center top;
+  object-position: center;
   display: block;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  /* White backdrops in the PNG read as the card surface */
+  mix-blend-mode: multiply;
 }
 
 .features-layout__right {
@@ -532,7 +549,7 @@ main.deck-root {
   }
 }
 
-/* —— Structure & tech: icon strip —— */
+/* [Structure & tech] icon strip */
 .slide-shell--stack .shell-header {
   margin-bottom: clamp(0.45rem, 1.2vh, 0.75rem);
 }
@@ -585,7 +602,7 @@ main.deck-root {
   font-weight: 500;
 }
 
-/* —— PM slide graphic —— */
+/* [PM slide] graphic */
 .pm-slide__media {
   margin-top: clamp(1.25rem, 3.5vh, 2rem);
   width: 100%;

@@ -200,12 +200,14 @@ function Slide04Features(): JSX.Element {
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
       <div className="features-layout">
         <div className="features-layout__media">
-          <img
-            className="features-layout__img"
-            src="/brand/closetai-tailor.png"
-            alt=""
-            decoding="async"
-          />
+          <div className="features-layout__frame">
+            <img
+              className="features-layout__img"
+              src="/brand/closetai-tailor.png"
+              alt=""
+              decoding="async"
+            />
+          </div>
         </div>
         <div className="features-layout__right">
           <div className="features-layout__f123 card-grid card-grid--3">

@@ -50,7 +50,7 @@ export const slide04 = {
   f4:
     "F-4 · Favourites: save and manage go-to looks so strong outfits stay one click away.",
   f5:
-    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI assists where wired—same dashboard-first flow.",
+    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI assists where wired, same dashboard-first flow.",
 } as const;
 
 export const slide05 = {

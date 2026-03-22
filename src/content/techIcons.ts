@@ -1,5 +1,5 @@
 /**
- * Simple Icons (CC0) — single-path marks that read clearly as ink on the slide.
+ * Simple Icons (CC0): single-path marks that read clearly as ink on the slide.
  * https://github.com/simple-icons/simple-icons
  */
 const SI_VER = "11.6.0";
