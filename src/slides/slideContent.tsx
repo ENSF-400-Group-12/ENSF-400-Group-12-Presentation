@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, type JSX } from "react";
+import { lazy, Suspense, useState, type JSX } from "react";
 import { GROUP_LABEL, HERO_TOP_LINE, TEAM_MEMBERS } from "../content/team";
 import {
   slide01Title,
@@ -21,9 +21,8 @@ const BRAND_DOOR = "/brand/ClosetAI-logo-transparent.png";
 const BRAND_WORD = "/brand/ClosetAI-transparent.png";
 const BRAND_FALLBACK = "/brand/closetai-horizontal.png";
 
-/** Main features: optional transparent art; falls back if the file is not present. */
-const FEATURE_TAILOR_TRANSPARENT = "/brand/closetai-tailor-transparent.png";
-const FEATURE_TAILOR_DEFAULT = "/brand/closetai-tailor.png";
+/** Main features tailor illustration (`public/brand/`). Replace with a transparent PNG at the same path if you export one. */
+const FEATURE_TAILOR_IMG = "/brand/closetai-tailor.png";
 
 function BrandLogoLockup(): JSX.Element {
   const [wordFailed, setWordFailed] = useState(false);
@@ -199,20 +198,6 @@ function TechIconStrip(): JSX.Element {
 }
 
 function Slide04Features(): JSX.Element {
-  const [tailorSrc, setTailorSrc] = useState(FEATURE_TAILOR_DEFAULT);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(FEATURE_TAILOR_TRANSPARENT, { method: "HEAD" })
-      .then((res) => {
-        if (!cancelled && res.ok) setTailorSrc(FEATURE_TAILOR_TRANSPARENT);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   return (
     <div className="slide-shell slide-shell--features">
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
@@ -221,7 +206,7 @@ function Slide04Features(): JSX.Element {
           <div className="features-layout__frame">
             <img
               className="features-layout__img"
-              src={tailorSrc}
+              src={FEATURE_TAILOR_IMG}
               alt=""
               decoding="async"
             />
