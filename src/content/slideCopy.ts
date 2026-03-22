@@ -23,7 +23,7 @@ export const slide03 = {
     "F-2 · Wardrobe: uploads, CRUD, search/filters, optional demo wardrobe.",
     "F-3 · Outfits: generate from saved items; explain + regenerate.",
     "F-4 · Favourites: save and manage go-to looks.",
-    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI GPT-4o mini for vision/metadata where wired.",
+    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI for vision/metadata where wired.",
   ],
 } as const;
 
