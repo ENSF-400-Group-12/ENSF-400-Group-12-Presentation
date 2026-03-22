@@ -85,12 +85,16 @@ function Slide03Description(): JSX.Element {
               <strong>F-2</strong> Wardrobe: uploads, CRUD, search, filters.
             </li>
             <li>
-              <strong>F-3</strong> Outfits: generate from saved items + explanations
-              (prototype: local rule-based engine; LLM optional later per SRS).
+              <strong>F-3</strong> Outfits: generate from saved items with explanations;
+              rule-based engine in product, with optional LLM support described in the SRS.
             </li>
             <li>
-              <strong>F-4 / F-5</strong> Favourites &amp; extra context (e.g. weather):
-              medium priority; out of scope for today&apos;s core demo.
+              <strong>F-4</strong> Outfit management: save, view, and manage favourite
+              looks so users can build a library of go-to combinations.
+            </li>
+            <li>
+              <strong>F-5</strong> Context-aware generation: occasion plus richer signals
+              (e.g. weather) to tighten recommendations when users want more precision.
             </li>
           </ul>
         </div>
@@ -102,7 +106,7 @@ function Slide03Description(): JSX.Element {
 function Slide04Features(): JSX.Element {
   return (
     <div className="slide">
-      <SlideHeader kicker="Assignment 4" title="What we built" />
+      <SlideHeader kicker="Product" title="Main features" />
       <div className="card-grid card-grid--3">
         <article className="card">
           <p className="card__label">F-1</p>
@@ -128,6 +132,10 @@ function Slide04Features(): JSX.Element {
           </p>
         </article>
       </div>
+      <p className="prose--compact" style={{ marginTop: "1rem" }}>
+        <strong>F-4</strong> favourites and <strong>F-5</strong> richer context (e.g.
+        weather) complete the SRS picture and extend the same dashboard-first experience.
+      </p>
     </div>
   );
 }
@@ -161,14 +169,14 @@ function Slide05Architecture(): JSX.Element {
           <h3>Data</h3>
           <ul>
             <li>sql.js / SQLite (<code>backend/data/app.db</code>)</li>
-            <li>Local image files (no cloud in v1)</li>
+            <li>Local image storage alongside metadata</li>
           </ul>
         </div>
       </div>
       <p className="prose--compact">
-        Rule-based generator runs locally (no API keys for class demos). SRS still
-        allows LLM/weather later. <strong>A4:</strong> feature branches, PRs,
-        reviewed merges, clear commits.
+        Outfit logic runs locally for fast, inspectable behavior; the SRS also
+        describes optional LLM and contextual inputs alongside F-5.{" "}
+        <strong>A4:</strong> feature branches, PRs, reviewed merges, clear commits.
       </p>
       <div className="pill-row" aria-label="Technology tags">
         {["React", "Express", "SQLite", "Sessions", "Git / PRs"].map((t) => (
@@ -208,8 +216,9 @@ function Slide07Reflection(): JSX.Element {
             <h3>Challenges</h3>
             <ul>
               <li>
-                Scoping SRS extras (LLM, weather) vs shipping a solid local core on
-                time.
+                Sequencing a full SRS: stable auth, wardrobe, and outfit flows first,
+                then layering favourites and contextual generation without blocking the
+                team.
               </li>
               <li>
                 Full-stack glue: sessions, uploads, DB, proxy across laptops.
