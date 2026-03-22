@@ -83,6 +83,16 @@ button:focus-visible {
   justify-content: center;
 }
 
+/* Pixel export (?export=N): same layout as the live deck, no chrome / motion */
+.deck--export .deck__stage {
+  padding-bottom: clamp(0.75rem, 2vw, 1.5rem);
+  box-sizing: border-box;
+}
+
+.deck--export .chrome {
+  display: none !important;
+}
+
 .slide {
   width: min(1420px, 100%);
   margin-inline: auto;

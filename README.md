@@ -8,8 +8,15 @@ This repository hosts the **slide deck** used for the course presentation: a sma
 
 **Live presentation:** [https://closetai-presentation.vercel.app/](https://closetai-presentation.vercel.app/)
 
-### Downloadable PPTX and PDF
+### Downloadable PPTX and PDF (pixel‑matched to the web deck)
 
-The [`export/`](export/) folder includes **ClosetAI-ENSF400-Group12.pptx** and **ClosetAI-ENSF400-Group12.pdf**. Both are built from real text objects (editable in PowerPoint and as normal PDF text), not slide screenshots. Layout follows the web deck: cream background (`#F9F8F3`), uppercase kickers, serif-style titles, sans body copy, a rule under each slide title, and white card panels where the site uses cards. **PPTX** uses **Georgia + Calibri** (close to the site’s Cormorant + DM Sans). **PDF** uses **Times + Helvetica** (standard embedded fonts so the file stays portable). Slide wording comes from [`src/content/slideCopy.ts`](src/content/slideCopy.ts) and the team roster from [`src/content/team.ts`](src/content/team.ts). Regenerate after edits with `npm run build:exports` (dev dependencies installed).
+The [`export/`](export/) folder includes **ClosetAI-ENSF400-Group12.pptx** and **ClosetAI-ENSF400-Group12.pdf**. They are **not** re-typeset in Office: each slide is a **full-frame screenshot** of the real React deck at **1920×1080** (logos, Google Fonts, CSS, cards, and grain match the site 1:1). Slides are captured with `?export=1` … `?export=7` (see [`PresentationDeck`](src/components/PresentationDeck.tsx)).
+
+**Regenerate**
+
+1. Install browsers once: `npx playwright install chromium`
+2. Run: `npm run build:exports` (builds the app, starts preview, captures PNGs into `export/raster/`, then assembles PPTX + PDF). If port `4173` is busy, the script tries `4174`…`4180`, or set `DECK_EXPORT_PORT` to a free port.
+
+**Note:** Each slide is an **image** inside PowerPoint/PDF, so you **cannot** edit body text like native placeholders. For wording changes, edit the app ([`src/content/slideCopy.ts`](src/content/slideCopy.ts), [`src/content/team.ts`](src/content/team.ts), etc.) and re-run `npm run build:exports`. `export/raster/*.png` is gitignored; commit the updated `.pptx` / `.pdf` when you are happy.
 
 **Course:** ENSF 400 · **Section:** L01 · **Group:** 12  

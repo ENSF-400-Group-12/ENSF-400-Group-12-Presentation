@@ -12,27 +12,48 @@ export type SlideRenderer = () => ReactNode;
 type Props = {
   slides: SlideRenderer[];
   deckLabel?: string;
+  /**
+   * When set (1-based slide number), hides chrome and locks navigation so
+   * Playwright can capture a pixel-accurate frame of the live deck.
+   */
+  exportSlide1Based?: number;
 };
 
-export function PresentationDeck({ slides, deckLabel = "ClosetAI" }: Props) {
-  const [index, setIndex] = useState(0);
+export function PresentationDeck({
+  slides,
+  deckLabel = "ClosetAI",
+  exportSlide1Based,
+}: Props) {
+  const count = slides.length;
+  const lockedIndex =
+    exportSlide1Based != null &&
+    exportSlide1Based >= 1 &&
+    exportSlide1Based <= count
+      ? exportSlide1Based - 1
+      : null;
+
+  const [index, setIndex] = useState(lockedIndex ?? 0);
   const [motionKey, setMotionKey] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
-  const count = slides.length;
-  const safeIndex = Math.min(Math.max(index, 0), count - 1);
+  const safeIndex =
+    lockedIndex !== null
+      ? lockedIndex
+      : Math.min(Math.max(index, 0), count - 1);
 
   const go = useCallback(
     (next: number) => {
+      if (lockedIndex !== null) return;
       const clamped = Math.min(Math.max(next, 0), count - 1);
       if (clamped === safeIndex) return;
       setIndex(clamped);
       setMotionKey((k) => k + 1);
     },
-    [count, safeIndex]
+    [count, lockedIndex, safeIndex]
   );
 
   useEffect(() => {
+    if (lockedIndex !== null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         e.preventDefault();
@@ -50,13 +71,15 @@ export function PresentationDeck({ slides, deckLabel = "ClosetAI" }: Props) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [count, go, safeIndex]);
+  }, [count, go, lockedIndex, safeIndex]);
 
   const onTouchStart = (e: React.TouchEvent) => {
+    if (lockedIndex !== null) return;
     touchStartX.current = e.changedTouches[0]?.clientX ?? null;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
+    if (lockedIndex !== null) return;
     const start = touchStartX.current;
     touchStartX.current = null;
     if (start == null) return;
@@ -71,11 +94,17 @@ export function PresentationDeck({ slides, deckLabel = "ClosetAI" }: Props) {
   const Current = slides[safeIndex];
 
   return (
-    <div className="deck" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <div
+      className={lockedIndex !== null ? "deck deck--export" : "deck"}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <div className="deck__stage">
         <div
-          className="slide slide--enter"
-          key={motionKey}
+          className={
+            lockedIndex !== null ? "slide" : "slide slide--enter"
+          }
+          key={lockedIndex !== null ? `export-${lockedIndex}` : motionKey}
           role="group"
           aria-roledescription="slide"
           aria-label={`Slide ${safeIndex + 1} of ${count}`}
@@ -84,6 +113,7 @@ export function PresentationDeck({ slides, deckLabel = "ClosetAI" }: Props) {
         </div>
       </div>
 
+      {lockedIndex === null ? (
       <div className="chrome">
         <div className="chrome__progress">
           <div className="chrome__meta">
@@ -120,6 +150,7 @@ export function PresentationDeck({ slides, deckLabel = "ClosetAI" }: Props) {
           </button>
         </div>
       </div>
+      ) : null}
     </div>
   );
 }
