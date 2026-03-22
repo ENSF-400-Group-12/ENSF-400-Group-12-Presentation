@@ -207,23 +207,21 @@ function Slide04Features(): JSX.Element {
             decoding="async"
           />
         </div>
-        <div className="features-layout__f123">
-          {slide04.cards.map((c) => (
-            <div key={c.label} className="features-feat">
-              <p className="features-feat__label">{c.label}</p>
-              <h3 className="features-feat__title">{c.title}</h3>
-              <p className="features-feat__body">{c.body}</p>
-            </div>
-          ))}
+        <div className="features-layout__right">
+          <div className="features-layout__f123 card-grid card-grid--3">
+            {slide04.cards.map((c) => (
+              <article key={c.label} className="card">
+                <p className="card__label">{c.label}</p>
+                <h2 className="card__title">{c.title}</h2>
+                <p className="card__body">{c.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="features-layout__f45">
+            <p className="features-f45__line">{slide04.f4}</p>
+            <p className="features-f45__line">{slide04.f5}</p>
+          </div>
         </div>
-      </div>
-      <div className="features-layout__lower">
-        <p className="features-feat__body features-feat__body--lower">
-          {slide04.f4}
-        </p>
-        <p className="features-feat__body features-feat__body--lower">
-          {slide04.f5}
-        </p>
       </div>
     </div>
   );
