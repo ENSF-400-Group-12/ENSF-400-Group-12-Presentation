@@ -26,6 +26,12 @@ function BrandLogoLockup(): JSX.Element {
     return (
       <div className="hero-brand">
         <img
+          className="hero-brand__door"
+          src={BRAND_DOOR}
+          alt=""
+          decoding="async"
+        />
+        <img
           className="hero-brand__wordmark"
           src={BRAND_FALLBACK}
           alt="ClosetAI"
@@ -244,7 +250,7 @@ function Slide06Demo(): JSX.Element {
 
 function Slide07Reflection(): JSX.Element {
   return (
-    <div className="slide-shell">
+    <div className="slide-shell slide-shell--pm">
       <ShellHeader kicker={slide07.kicker} title={slide07.title} />
       <div className="grid-2">
         <div>
