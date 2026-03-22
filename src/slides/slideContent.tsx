@@ -202,30 +202,35 @@ function Slide04Features(): JSX.Element {
     <div className="slide-shell slide-shell--features">
       <ShellHeader kicker={slide04.kicker} title={slide04.title} />
       <div className="features-layout">
-        <div className="features-layout__media">
-          <div className="features-layout__frame">
-            <img
-              className="features-layout__img"
-              src={FEATURE_TAILOR_IMG}
-              alt=""
-              decoding="async"
-            />
+        <div className="features-layout__grid features-layout__grid--top">
+          <div className="features-layout__tile features-layout__tile--media">
+            <div className="features-layout__frame">
+              <img
+                className="features-layout__img"
+                src={FEATURE_TAILOR_IMG}
+                alt=""
+                decoding="async"
+              />
+            </div>
           </div>
+          {slide04.cards.map((c) => (
+            <article
+              key={c.label}
+              className="card features-layout__tile features-layout__tile--feat"
+            >
+              <p className="card__label">{c.label}</p>
+              <h2 className="card__title">{c.title}</h2>
+              <p className="card__body">{c.body}</p>
+            </article>
+          ))}
         </div>
-        <div className="features-layout__right">
-          <div className="features-layout__f123 card-grid card-grid--3">
-            {slide04.cards.map((c) => (
-              <article key={c.label} className="card">
-                <p className="card__label">{c.label}</p>
-                <h2 className="card__title">{c.title}</h2>
-                <p className="card__body">{c.body}</p>
-              </article>
-            ))}
-          </div>
-          <div className="features-layout__f45">
-            <p className="features-f45__line">{slide04.f4}</p>
-            <p className="features-f45__line">{slide04.f5}</p>
-          </div>
+        <div className="features-layout__grid features-layout__grid--bottom">
+          <article className="card features-layout__tile features-layout__tile--f45">
+            <p className="card__body features-layout__f45-body">{slide04.f4}</p>
+          </article>
+          <article className="card features-layout__tile features-layout__tile--f45">
+            <p className="card__body features-layout__f45-body">{slide04.f5}</p>
+          </article>
         </div>
       </div>
     </div>

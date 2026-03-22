@@ -445,105 +445,114 @@ main.deck-root {
   align-items: start;
 }
 
-/* [Main features] image left, F1-F3 cards, F4-F5 under cards */
+/* [Main features] equal tiles, shared mat color (matches tailor art), F4-F5 as cards */
 .slide-shell--features {
+  --features-tile-surface: #ebe8e2;
+  --features-tile-border: rgba(10, 10, 10, 0.1);
   gap: clamp(0.55rem, 1.4vh, 0.95rem);
 }
 
 .features-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1.92fr);
-  gap: clamp(1rem, 2.4vw, 1.75rem);
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.6vh, 1.05rem);
   width: 100%;
   flex: 0 1 auto;
   min-height: 0;
 }
 
-.features-layout__media {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
+.features-layout__grid {
+  display: grid;
+  gap: clamp(0.75rem, 1.5vw, 1.05rem);
+  width: 100%;
   min-width: 0;
 }
 
-/* Matches feature cards: same surface, radius family, shadow (no blend modes) */
-.features-layout__frame {
+.features-layout__grid--top {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.features-layout__grid--bottom {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.features-layout__tile {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: clamp(148px, 17.5dvh, 228px);
+}
+
+.slide-shell--features .features-layout__tile.card {
+  background: var(--features-tile-surface);
+  border-color: var(--features-tile-border);
+  box-shadow: var(--shadow-soft);
+  margin: 0;
+  height: 100%;
+  min-height: clamp(148px, 17.5dvh, 228px);
+  padding: clamp(0.95rem, 1.5vw, 1.25rem) clamp(1rem, 1.6vw, 1.3rem);
+}
+
+.slide-shell--features .features-layout__tile.card:hover {
+  border-color: rgba(26, 27, 58, 0.18);
+}
+
+.features-layout__tile--media .features-layout__frame {
+  flex: 1;
   width: 100%;
+  min-height: 0;
   box-sizing: border-box;
-  background: var(--bg-elevated);
-  border: 1px solid var(--line);
+  background: var(--features-tile-surface);
+  border: 1px solid var(--features-tile-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  padding: clamp(0.85rem, 1.65vw, 1.2rem);
+  padding: clamp(0.5rem, 1.1vw, 0.8rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;
 }
 
 .features-layout__img {
-  width: 100%;
   max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
-  max-height: min(40dvh, 400px);
   object-fit: contain;
   object-position: center;
   display: block;
-  border-radius: var(--radius-md);
 }
 
-.features-layout__right {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.65rem, 1.5vh, 1rem);
-  min-width: 0;
+.slide-shell--features .features-layout__tile--f45.card {
+  min-height: clamp(100px, 11dvh, 132px);
+  justify-content: center;
 }
 
-.features-layout__f123 {
-  width: 100%;
-}
-
-.features-layout__f123 .card {
-  padding: clamp(1rem, 1.6vw, 1.35rem) clamp(1.1rem, 1.8vw, 1.4rem);
-}
-
-.features-layout__f45 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.65rem, 1.5vw, 1.1rem);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.features-f45__line {
+.features-layout__f45-body {
   margin: 0;
-  font-size: clamp(0.86rem, 1vw, 0.96rem);
-  color: var(--ink-muted);
+  font-size: clamp(0.86rem, 0.98vw, 0.95rem);
   line-height: 1.42;
 }
 
-@media (max-width: 960px) {
-  .features-layout {
+@media (max-width: 1024px) {
+  .features-layout__grid--top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .features-layout__grid--top {
     grid-template-columns: 1fr;
   }
 
-  .features-layout__media {
-    position: static;
-  }
-
-  .features-layout__f45 {
+  .features-layout__grid--bottom {
     grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 961px) and (max-width: 1100px) {
-  .features-layout__f123.card-grid {
-    gap: 0.75rem;
-  }
-
-  .features-layout__f123 .card__body {
-    font-size: 0.95em;
+@media (min-width: 1025px) and (max-width: 1180px) {
+  .slide-shell--features .features-layout__tile--feat .card__body {
+    font-size: 0.94em;
   }
 }
 
