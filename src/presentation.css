@@ -220,11 +220,11 @@ main.deck-root {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  gap: clamp(0.65rem, 1.8vw, 1.15rem);
+  gap: clamp(1.1rem, 2.8vw, 1.85rem);
 }
 
 .hero-brand__door {
-  width: clamp(76px, 10.5vw, 112px);
+  width: clamp(152px, 21vw, 224px);
   height: auto;
   flex: 0 0 auto;
   display: block;
@@ -232,11 +232,11 @@ main.deck-root {
 }
 
 .hero-brand__wordmark {
-  flex: 1 1 min(220px, 100%);
-  width: min(480px, 100%);
+  flex: 1 1 min(280px, 100%);
+  width: min(960px, 100%);
   max-width: 100%;
   height: auto;
-  max-height: clamp(48px, 7.5vw, 72px);
+  max-height: clamp(96px, 15vw, 144px);
   object-fit: contain;
   object-position: left center;
   display: block;
@@ -250,8 +250,8 @@ main.deck-root {
 
   .hero-brand__wordmark {
     height: auto;
-    max-height: clamp(40px, 12vw, 56px);
-    width: min(100%, 360px);
+    max-height: clamp(72px, 22vw, 112px);
+    width: min(100%, 720px);
   }
 }
 
