@@ -123,7 +123,7 @@ function Slide01Hero(): JSX.Element {
 function Slide02Team(): JSX.Element {
   return (
     <div className="slide-shell slide-shell--team">
-      <ShellHeader kicker={GROUP_LABEL} title="Team" />
+      <ShellHeader kicker={GROUP_LABEL} title="Project team" />
       <div className="team-slide">
         <div className="team-slide__cluster">
           <div className="team-slide__row">

@@ -10,47 +10,47 @@ export const slide01Title = {
 
 export const slide03 = {
   kicker: "SRS (A1)",
-  title: "Scope & requirements",
+  title: "Project description & requirements",
   leftHeading: "At a glance",
   summaryBullets: [
     "Wardrobe in the browser: save items, then generate outfits only from what you own.",
     "Readable explanations on results; dashboard-first flow (occasion + vibe, not weather-first).",
-    "Stack: React, React Router, Express, sessions, SQLite (sql.js), local image files.",
+    "Stack: React 19, React Router 6, CRA + setupProxy, Express 5, express-session, sql.js file DB (backend/data/app.db), multer uploads (backend/uploads).",
   ] as const,
   rightHeading: "F-1 to F-5",
   bullets: [
     "F-1 · Auth: signup, login, logout, protected routes.",
-    "F-2 · Wardrobe: uploads, CRUD, search/filters, optional demo wardrobe.",
-    "F-3 · Outfits: generate from saved items; explain + regenerate.",
-    "F-4 · Favourites: save and manage go-to looks.",
-    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI for vision/metadata where wired.",
+    "F-2 · Wardrobe: uploads, CRUD, search/filters, optional demo wardrobe (/api/demo seed).",
+    "F-3 · Outfits: generate from saved items; explanation, regenerate; optional OpenAI rerank when env allows.",
+    "F-4 · Favourites: in SRS; /favorites route is a placeholder (coming soon), not persisted in this build.",
+    "F-5 · Context: richer inputs (e.g. weather) in SRS scope; not in current UI. OpenAI used for item photo assist and optional outfit rerank.",
   ],
 } as const;
 
 export const slide04 = {
   kicker: "Product",
-  title: "Main features",
+  title: "Main features (implemented)",
   cards: [
     {
       label: "F-1",
       title: "Accounts",
-      body: "Private wardrobe per user: auth before any data, aligned with the SRS landing-to-dashboard flow.",
+      body: "Keeps closets private: signup, login, logout, and session-gated API routes so users only see their own wardrobe data.",
     },
     {
       label: "F-2",
       title: "Wardrobe",
-      body: "Image-first intake, CRUD, search/filters, data that survives restarts.",
+      body: "Digitizes what you own: image uploads, metadata, CRUD, filters, optional demo seed, sql.js + files so data survives restarts.",
     },
     {
       label: "F-3",
       title: "Outfits",
-      body: "Occasion + vibe in; outfits from your closet out, with rationale and regenerate.",
+      body: "Solves what to wear from that closet: occasion + vibe in, local scoring with readable rationale, regenerate; optional OpenAI rerank between candidates when enabled.",
     },
   ],
   f4:
-    "F-4 · Favourites: save and manage go-to looks so strong outfits stay one click away.",
+    "F-4 · Favourites (SRS, not shipped): saved-outfit library is planned; the app shows a placeholder page, no save API yet.",
   f5:
-    "F-5 · Context: richer inputs when needed (e.g. weather); optional OpenAI assists where wired, same dashboard-first flow.",
+    "F-5 · Context (SRS): weather-style inputs are future scope. Today, OpenAI supports item metadata from photos and optional outfit reranking.",
 } as const;
 
 export const slide05 = {
@@ -59,13 +59,13 @@ export const slide05 = {
   columns: [
     {
       heading: "Client",
-      lines: ["React, React Router, JS, global CSS", "Dev proxy (setupProxy)"],
+      lines: ["React 19, React Router 6, CRA, JS + CSS", "setupProxy to backend during development"],
     },
     {
       heading: "Server",
       lines: [
-        "Express, session auth, multipart image uploads",
-        "OpenAI API where we use AI for vision or metadata assists",
+        "Express 5, express-session, cookie-backed auth, multer multipart uploads",
+        "OpenAI SDK when configured: item image assist, optional outfit rerank (OPENAI_OUTFIT_RERANK)",
       ],
     },
     {
@@ -74,8 +74,8 @@ export const slide05 = {
     },
   ],
   footer:
-    "Core outfit generation stays local and inspectable. Optional paths use OpenAI for lightweight vision or metadata help, aligned with the SRS. A4: feature branches, PRs, reviewed merges, clear commits.",
-  pills: ["React", "Express", "SQLite", "OpenAI", "Sessions", "Git / PRs"],
+    "Core outfit scoring and picking stay in Node (inspectable rules). OpenAI is optional for item photos and reranking top candidates. Workflow: feature branches, PRs, reviews, clear commits on the A4 repo.",
+  pills: ["React", "Express", "sql.js", "OpenAI", "Sessions", "Git / PRs"],
 } as const;
 
 export const slide06 = {
@@ -91,9 +91,9 @@ export const slide07 = {
     {
       heading: "Challenges",
       bullets: [
-        "Sequencing a full SRS: stable auth, wardrobe, and outfit flows first, then layering favourites and contextual generation without blocking the team.",
-        "Full-stack glue: sessions, uploads, DB, proxy across laptops.",
-        "Keeping acceptance criteria shared while work ran in parallel.",
+        "Sequencing a full SRS: ship auth, wardrobe, and outfit flows first; favourites and richer context stay scoped but unfinished without blocking the rest.",
+        "Integration risk: sessions, uploads, sql.js file DB, and CRA setupProxy had to match across machines and branches.",
+        "Communication load: parallel client and server work without always sharing the latest API contract until hook-up time.",
       ],
     },
     {
@@ -107,14 +107,14 @@ export const slide07 = {
   ],
   rightBlocks: [
     {
-      heading: "Next time",
+      heading: "Next time (communication)",
       paragraph:
-        "Earlier shared API examples and short decision notes after scope discussions, so fewer surprises late in the term.",
+        "Post agreed examples of request and response shapes right after scope changes, so integration is boring. Set clearer norms for when to meet live versus async chat, and a short path to resolve disagreements before they stall merges.",
     },
     {
-      heading: "Reviews",
+      heading: "Code feedback",
       paragraph:
-        "PR comments on behavior and security (auth, uploads); sync for blockers, async for the rest.",
+        "GitHub pull requests with required review: comments on behavior, auth, and uploads; quick sync when blocked, otherwise async review. Same habit as A4: small PRs, explicit reviewers, fix before merge.",
     },
   ],
 } as const;
