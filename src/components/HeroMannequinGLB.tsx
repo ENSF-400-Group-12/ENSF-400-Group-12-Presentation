@@ -17,23 +17,22 @@ const GLB_PATH = "/models/tailors_mannequin.glb";
 useGLTF.preload(GLB_PATH, false, false);
 
 /**
- * World size after normalize (meters-ish). Keeps framing stable with a fixed camera.
+ * World size after normalize (meters-ish). ~2x previous scale; camera + FOV tuned so the figure
+ * fills the hero viewer without clipping the mesh or stand.
  */
-/** Slightly larger in scene; paired with pulled-back camera + FOV so the frustum does not clip. */
-const TARGET_MAX_EXTENT = 5.05;
+const TARGET_MAX_EXTENT = 10.1;
 
 /**
  * Blender-style fix: rotate the asset so Y is up; tune if the dress form shows side/back.
  */
 const MODEL_ROTATION_FIX: [number, number, number] = [0, Math.PI, 0];
 
-/**
- * Camera on −Z. Framing matches the earlier “good” shot; look-at barely lower than 0.42 for a
- * touch more tripod visible without sitting the whole figure too high in frame.
- */
-const CAM_POSITION: [number, number, number] = [0, 1.22, -6.8];
-/** Aim slightly lower so the stand / base stays inside the frustum. */
-const LOOK_AT: [number, number, number] = [0, 0.12, 0];
+/** Camera on −Z, pulled back in proportion to larger normalized scale. */
+const CAM_POSITION: [number, number, number] = [0, 1.18, -13.15];
+/** Aim slightly low so the tripod base stays inside the frustum. */
+const LOOK_AT: [number, number, number] = [0, 0.1, 0];
+/** Narrower FOV than before so a bigger subject still fits without edge clip. */
+const CAM_FOV = 44;
 
 function StandingCameraRig() {
   const { camera } = useThree();
@@ -41,7 +40,7 @@ function StandingCameraRig() {
     const p = camera as THREE.PerspectiveCamera;
     p.near = 0.06;
     p.far = 120;
-    p.fov = 48;
+    p.fov = CAM_FOV;
     p.position.set(...CAM_POSITION);
     p.updateProjectionMatrix();
   }, [camera]);
@@ -59,18 +58,31 @@ function MannequinModel({ spin }: { spin: boolean }) {
   const root = useMemo(() => {
     const m = SkeletonUtils.clone(scene) as THREE.Group;
     m.visible = true;
+    /** Warm cream body read (closer to slide paper than default grey plastic). */
+    const cream = new THREE.Color("#f3e8d8");
     m.traverse((o) => {
       o.visible = true;
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh || !mesh.material) return;
       const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
       for (const mat of mats) {
-        if (mat && "side" in mat) {
-          (mat as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
+        if (!mat) continue;
+        if (mat instanceof THREE.MeshStandardMaterial) {
+          mat.color.copy(cream);
+          mat.metalness = 0;
+          mat.roughness = 0.9;
+          mat.envMapIntensity = 0.32;
+          mat.side = THREE.DoubleSide;
+        } else if (mat instanceof THREE.MeshBasicMaterial) {
+          mat.color.copy(cream);
+          mat.side = THREE.DoubleSide;
+        } else if ("color" in mat && mat.color instanceof THREE.Color) {
+          mat.color.copy(cream);
+          if ("side" in mat) {
+            (mat as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
+          }
         }
-        if (mat && "needsUpdate" in mat) {
-          (mat as THREE.Material).needsUpdate = true;
-        }
+        mat.needsUpdate = true;
       }
     });
 
@@ -131,7 +143,7 @@ export function HeroMannequinGLB({ className = "" }: Props) {
   return (
     <div className={`hero-glb ${className}`.trim()}>
       <Canvas
-        camera={{ fov: 48, near: 0.06, far: 120, position: [...CAM_POSITION] }}
+        camera={{ fov: CAM_FOV, near: 0.06, far: 120, position: [...CAM_POSITION] }}
         gl={{
           alpha: true,
           antialias: true,
@@ -147,10 +159,10 @@ export function HeroMannequinGLB({ className = "" }: Props) {
         }}
       >
         <StandingCameraRig />
-        <ambientLight intensity={0.42} />
-        <hemisphereLight intensity={0.55} color="#ffffff" groundColor="#8a7a6e" />
-        <directionalLight position={[5, 8, 6]} intensity={1.05} color="#ffffff" />
-        <directionalLight position={[-4, 2, -3]} intensity={0.38} color="#d4c4b0" />
+        <ambientLight intensity={0.5} color="#fff8f0" />
+        <hemisphereLight intensity={0.58} color="#fffaf4" groundColor="#9c8c7e" />
+        <directionalLight position={[5, 8, 6]} intensity={0.95} color="#fff5eb" />
+        <directionalLight position={[-4, 2, -3]} intensity={0.42} color="#e8d4c4" />
         <Suspense fallback={null}>
           <Center precise>
             <MannequinModel spin={spin} />
