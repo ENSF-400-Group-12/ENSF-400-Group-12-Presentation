@@ -8,4 +8,6 @@ This repository hosts the **slide deck** used for the course presentation: a sma
 
 **Live presentation:** [https://closetai-presentation.vercel.app/](https://closetai-presentation.vercel.app/)
 
+**Live application:** [https://joinclosetai.com/](https://joinclosetai.com/)
+
 **Course:** ENSF 400 · **Section:** L01 · **Group:** 12  
