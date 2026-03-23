@@ -17,20 +17,23 @@ const GLB_PATH = "/models/tailors_mannequin.glb";
 useGLTF.preload(GLB_PATH, false, false);
 
 /**
- * World size after normalize. Camera is *not* pulled back in the same ratio (that made the
- * on-screen size look unchanged). This pair is tuned so the figure reads clearly larger in the hero.
+ * World size after normalize (meters-ish). Keeps framing stable with a fixed camera.
  */
-const TARGET_MAX_EXTENT = 10.8;
+/** Slightly larger in scene; paired with pulled-back camera + FOV so the frustum does not clip. */
+const TARGET_MAX_EXTENT = 5.05;
 
 /**
  * Blender-style fix: rotate the asset so Y is up; tune if the dress form shows side/back.
  */
 const MODEL_ROTATION_FIX: [number, number, number] = [0, Math.PI, 0];
 
-/** Camera on −Z, closer than “proportional” pull-back so the model fills the panel. */
-const CAM_POSITION: [number, number, number] = [0, 1.05, -6.95];
-const LOOK_AT: [number, number, number] = [0, 0.08, 0];
-const CAM_FOV = 50;
+/**
+ * Camera on −Z. Framing matches the earlier “good” shot; look-at barely lower than 0.42 for a
+ * touch more tripod visible without sitting the whole figure too high in frame.
+ */
+const CAM_POSITION: [number, number, number] = [0, 1.22, -6.8];
+/** Aim slightly lower so the stand / base stays inside the frustum. */
+const LOOK_AT: [number, number, number] = [0, 0.12, 0];
 
 function StandingCameraRig() {
   const { camera } = useThree();
@@ -38,7 +41,7 @@ function StandingCameraRig() {
     const p = camera as THREE.PerspectiveCamera;
     p.near = 0.06;
     p.far = 120;
-    p.fov = CAM_FOV;
+    p.fov = 48;
     p.position.set(...CAM_POSITION);
     p.updateProjectionMatrix();
   }, [camera]);
@@ -56,43 +59,18 @@ function MannequinModel({ spin }: { spin: boolean }) {
   const root = useMemo(() => {
     const m = SkeletonUtils.clone(scene) as THREE.Group;
     m.visible = true;
-    /** Cream read: glTF often ships baseColorMap; color alone then looks unchanged. */
-    const cream = new THREE.Color("#f2e4d4");
-    const creamEmit = new THREE.Color("#d4b896");
     m.traverse((o) => {
       o.visible = true;
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh || !mesh.material) return;
       const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
       for (const mat of mats) {
-        if (!mat) continue;
-        /* MeshPhysicalMaterial extends MeshStandardMaterial in three.js */
-        if (mat instanceof THREE.MeshStandardMaterial) {
-          mat.map = null;
-          mat.metalnessMap = null;
-          mat.roughnessMap = null;
-          mat.normalMap = null;
-          mat.aoMap = null;
-          mat.emissiveMap = null;
-          mat.color.copy(cream);
-          mat.metalness = 0;
-          mat.roughness = 0.88;
-          mat.envMapIntensity = 0.28;
-          mat.emissive.copy(creamEmit);
-          mat.emissiveIntensity = 0.12;
-          mat.side = THREE.DoubleSide;
-        } else if (mat instanceof THREE.MeshBasicMaterial) {
-          mat.map = null;
-          mat.color.copy(cream);
-          mat.side = THREE.DoubleSide;
-        } else if ("color" in mat && mat.color instanceof THREE.Color) {
-          if ("map" in mat && mat.map) (mat as THREE.MeshBasicMaterial).map = null;
-          mat.color.copy(cream);
-          if ("side" in mat) {
-            (mat as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
-          }
+        if (mat && "side" in mat) {
+          (mat as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
         }
-        mat.needsUpdate = true;
+        if (mat && "needsUpdate" in mat) {
+          (mat as THREE.Material).needsUpdate = true;
+        }
       }
     });
 
@@ -153,7 +131,7 @@ export function HeroMannequinGLB({ className = "" }: Props) {
   return (
     <div className={`hero-glb ${className}`.trim()}>
       <Canvas
-        camera={{ fov: CAM_FOV, near: 0.06, far: 120, position: [...CAM_POSITION] }}
+        camera={{ fov: 48, near: 0.06, far: 120, position: [...CAM_POSITION] }}
         gl={{
           alpha: true,
           antialias: true,
@@ -169,10 +147,10 @@ export function HeroMannequinGLB({ className = "" }: Props) {
         }}
       >
         <StandingCameraRig />
-        <ambientLight intensity={0.5} color="#fff8f0" />
-        <hemisphereLight intensity={0.58} color="#fffaf4" groundColor="#9c8c7e" />
-        <directionalLight position={[5, 8, 6]} intensity={0.95} color="#fff5eb" />
-        <directionalLight position={[-4, 2, -3]} intensity={0.42} color="#e8d4c4" />
+        <ambientLight intensity={0.42} />
+        <hemisphereLight intensity={0.55} color="#ffffff" groundColor="#8a7a6e" />
+        <directionalLight position={[5, 8, 6]} intensity={1.05} color="#ffffff" />
+        <directionalLight position={[-4, 2, -3]} intensity={0.38} color="#d4c4b0" />
         <Suspense fallback={null}>
           <Center precise>
             <MannequinModel spin={spin} />
