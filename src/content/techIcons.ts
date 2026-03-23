@@ -20,6 +20,8 @@ export const TECH_STRIP_ITEMS: readonly TechStripItem[] = [
   { id: "node", label: "Node.js", slug: "nodedotjs" },
   { id: "express", label: "Express", slug: "express" },
   { id: "sqlite", label: "SQLite", slug: "sqlite" },
+  { id: "vercel", label: "Vercel", slug: "vercel" },
+  { id: "railway", label: "Railway", slug: "railway" },
   { id: "openai", label: "OpenAI", slug: "openai" },
   { id: "git", label: "Git", slug: "git" },
 ] as const;

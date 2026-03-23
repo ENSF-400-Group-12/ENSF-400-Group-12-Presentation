@@ -274,6 +274,7 @@ function Slide05Architecture(): JSX.Element {
 }
 
 function Slide06Demo(): JSX.Element {
+  const demoDisplayUrl = slide06.demoUrl.replace(/^https?:\/\//, "");
   return (
     <div className="slide-shell slide-shell--demo">
       <ShellHeader kicker={slide06.kicker} title={slide06.title} />
@@ -285,6 +286,14 @@ function Slide06Demo(): JSX.Element {
           decoding="async"
         />
         <p className="demo-placeholder__title">{slide06.centerTitle}</p>
+        <a
+          className="demo-placeholder__link"
+          href={slide06.demoUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {demoDisplayUrl}
+        </a>
       </div>
     </div>
   );

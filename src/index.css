@@ -396,6 +396,20 @@ button:focus-visible {
   letter-spacing: -0.02em;
 }
 
+.demo-placeholder__link {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.demo-placeholder__link:hover {
+  color: var(--accent);
+}
+
 .arch {
   display: grid;
   gap: 1.1rem;

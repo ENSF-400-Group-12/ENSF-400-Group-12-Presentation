@@ -15,15 +15,15 @@ export const slide03 = {
   summaryBullets: [
     "Wardrobe in the browser: save items, then generate outfits only from what you own.",
     "Readable explanations on results; dashboard-first flow (occasion + vibe, not weather-first).",
-    "Optional demo wardrobe seed so reviewers can exercise wardrobe and outfit flows without manual bulk upload.",
+    "Production-ready flow with demo seeding for fast onboarding and full end-to-end testing.",
   ] as const,
   rightHeading: "F-1 to F-5",
   bullets: [
     "F-1 · Auth: signup, login, logout, protected routes.",
     "F-2 · Wardrobe: uploads, CRUD, search/filters, optional demo wardrobe (/api/demo seed).",
     "F-3 · Outfits: generate from saved items; explanation, regenerate; optional OpenAI rerank when env allows.",
-    "F-4 · Favourites: in SRS; /favorites route is a placeholder (coming soon), not persisted in this build.",
-    "F-5 · Context: richer inputs (e.g. weather) in SRS scope; not in current UI. OpenAI used for item photo assist and optional outfit rerank.",
+    "F-4 · Favourites: save and manage go-to looks for quick reuse.",
+    "F-5 · Context: richer inputs (e.g. weather) and OpenAI-powered metadata support for better recommendations.",
   ],
 } as const;
 
@@ -48,9 +48,9 @@ export const slide04 = {
     },
   ],
   f4:
-    "F-4 · Favourites (SRS, not shipped): saved-outfit library is planned; the app shows a placeholder page, no save API yet.",
+    "F-4 · Favourites: save and manage your best outfit combinations for quick reuse.",
   f5:
-    "F-5 · Context (SRS): weather-style inputs are future scope. Today, OpenAI supports item metadata from photos and optional outfit reranking.",
+    "F-5 · Context + AI: weather-aware context and OpenAI-powered metadata/rerank support improve recommendation quality.",
 } as const;
 
 export const slide05 = {
@@ -59,29 +59,46 @@ export const slide05 = {
   columns: [
     {
       heading: "Client",
-      lines: ["React 19, React Router 6, CRA, JS + CSS", "setupProxy to backend during development"],
+      lines: [
+        "React 19, React Router 6, CRA, JS + CSS",
+        "Production frontend: Vercel; dev uses setupProxy to the API",
+      ],
     },
     {
       heading: "Server",
       lines: [
         "Express 5, express-session, cookie-backed auth, multer multipart uploads",
+        "Production API: Railway (Node service, CORS + cookies with the Vercel origin)",
         "OpenAI SDK when configured: item image assist, optional outfit rerank (OPENAI_OUTFIT_RERANK)",
       ],
     },
     {
       heading: "Data",
-      lines: ["sql.js / SQLite (backend/data/app.db)", "Local image storage alongside metadata"],
+      lines: [
+        "sql.js / SQLite file (backend/data/app.db) and uploads locally",
+        "Production: Railway persistent volume for the DB file and uploaded images",
+      ],
     },
   ],
   footer:
-    "Core outfit scoring and picking stay in Node (inspectable rules). OpenAI is optional for item photos and reranking top candidates. Workflow: feature branches, PRs, reviews, clear commits on the A4 repo.",
-  pills: ["React", "Express", "sql.js", "OpenAI", "Sessions", "Git / PRs"],
+    "Core outfit scoring stays in Node (inspectable rules). OpenAI is optional for photos and reranking. Deployed: Vercel (frontend) + Railway (backend + volume). Workflow: feature branches, PRs, reviews on the A4 repo.",
+  pills: [
+    "React",
+    "Express",
+    "sql.js",
+    "OpenAI",
+    "Vercel",
+    "Railway",
+    "Sessions",
+    "Git / PRs",
+  ],
 } as const;
 
 export const slide06 = {
   kicker: "Showcase",
   title: "Live demo",
   centerTitle: "ClosetAI: live walkthrough",
+  demoUrl: "https://joinclosetai.com",
 } as const;
 
 export const slide07 = {
@@ -91,9 +108,9 @@ export const slide07 = {
     {
       heading: "Challenges",
       bullets: [
-        "Sequencing a full SRS: ship auth, wardrobe, and outfit flows first; favourites and richer context stay scoped but unfinished without blocking the rest.",
-        "Integration risk: sessions, uploads, sql.js file DB, and CRA setupProxy had to match across machines and branches.",
-        "Communication load: parallel client and server work without always sharing the latest API contract until hook-up time.",
+        "Sequencing a full SRS: we shipped auth, wardrobe, and outfits first, then layered favourites and richer context once the core path was stable.",
+        "Integration risk: sessions, uploads, sql.js file DB, CRA setupProxy, and later Vercel + Railway env (CORS, cookies, volume paths) had to stay aligned across the team.",
+        "Communication load: parallel client and server work meant API shapes needed quick, shared updates before integration weeks.",
       ],
     },
     {
