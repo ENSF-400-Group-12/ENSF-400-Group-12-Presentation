@@ -126,7 +126,8 @@ main.deck-root {
 }
 
 .slide-shell--pm .grid-2 {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
+  flex-shrink: 0;
   min-height: 0;
 }
 
@@ -610,14 +611,15 @@ main.deck-root {
 }
 
 /* [PM slide] graphic */
-.pm-slide__media {
-  margin-top: clamp(1.25rem, 3.5vh, 2rem);
-  width: 100%;
+.slide-shell--pm .pm-slide__media {
+  margin-top: clamp(0.65rem, 2vh, 1.25rem);
+  flex: 1 1 0;
   min-height: 0;
-  flex-shrink: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  overflow: hidden;
 }
 
 .pm-slide__graphic {
@@ -640,9 +642,13 @@ main.deck-root {
   background: transparent;
   padding: 0;
   border-radius: 0;
-  /* ~150% vs previous bare caps */
-  max-width: min(1650px, 100%);
-  max-height: min(78dvh, 840px);
+  /* Size to the flex slot only — avoids overlap when dvh is large vs. available slide height */
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 @media (max-height: 780px) {
@@ -650,8 +656,8 @@ main.deck-root {
     max-height: min(32dvh, 320px);
   }
 
-  .pm-slide__graphic--bare {
-    max-height: min(60dvh, 600px);
+  .slide-shell--pm .pm-slide__graphic--bare {
+    max-height: 100%;
   }
 
   .team-slide__accent {
